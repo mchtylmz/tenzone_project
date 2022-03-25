@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
     $user = \App\Models\User::find(1);
-    debug($user->fullname);
+    debug($user->can('user_access'));
     return view('welcome');
 });
 

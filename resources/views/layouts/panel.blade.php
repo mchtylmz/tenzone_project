@@ -19,11 +19,7 @@
 
     <!-- Scripts -->
     @stack('scripts')
-    <script>
-        const lang = {
-            unknown_error: '{{ __('message.unknown_error') }}'
-        }
-    </script>
+    <x-scripts.translations />
     <script src="{{ asset('assets/js/app.js') }}"></script>
 </head>
 <body>

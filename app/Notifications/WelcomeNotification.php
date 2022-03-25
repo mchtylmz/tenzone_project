@@ -48,7 +48,7 @@ class WelcomeNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject(trans('notification.welcome.subject'))
-            ->greeting($this->user->name)
+            ->greeting($this->user->fullname)
             ->line(trans('notification.welcome.welcome_text'))
             ->action(trans('notification.welcome.profile_url_text'), route('home'));
     }

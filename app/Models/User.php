@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\hasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -84,17 +86,17 @@ class User extends Authenticatable
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function childs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function childs(): HasMany
     {
         return $this->hasMany( 'App\Models\User', 'parent_id', 'id' );
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
-    public function parent(): \Illuminate\Database\Eloquent\Relations\hasOne
+    public function parent(): hasOne
     {
         return $this->hasOne( 'App\Models\User', 'id', 'parent_id' );
     }

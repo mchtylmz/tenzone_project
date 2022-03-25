@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        debug(
+            timeAgo('2022-01-03 10:00:00')
+        );
         return view('home');
     }
 }
