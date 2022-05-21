@@ -1234,9 +1234,9 @@ eval("/*!\n* sweetalert2 v11.4.7\n* Released under the MIT License.\n*/\n(functi
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/assets/js/app": 0,
+/******/ 			"assets/css/site": 0,
 /******/ 			"assets/css/auth": 0,
-/******/ 			"assets/css/app": 0,
-/******/ 			"assets/css/site": 0
+/******/ 			"assets/css/app": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -1286,13 +1286,13 @@ eval("/*!\n* sweetalert2 v11.4.7\n* Released under the MIT License.\n*/\n(functi
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["assets/css/auth","assets/css/app","assets/css/site"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["assets/css/auth","assets/css/app","assets/css/site"], () => (__webpack_require__("./resources/sass/app.scss")))
-/******/ 	__webpack_require__.O(undefined, ["assets/css/auth","assets/css/app","assets/css/site"], () => (__webpack_require__("./resources/sass/auth.scss")))
-/******/ 	__webpack_require__.O(undefined, ["assets/css/auth","assets/css/app","assets/css/site"], () => (__webpack_require__("./resources/sass/site.scss")))
-/******/ 	__webpack_require__.O(undefined, ["assets/css/auth","assets/css/app","assets/css/site"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["assets/css/auth","assets/css/app","assets/css/site"], () => (__webpack_require__("./resources/css/auth.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["assets/css/auth","assets/css/app","assets/css/site"], () => (__webpack_require__("./resources/css/site.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/css/site","assets/css/auth","assets/css/app"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["assets/css/site","assets/css/auth","assets/css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	__webpack_require__.O(undefined, ["assets/css/site","assets/css/auth","assets/css/app"], () => (__webpack_require__("./resources/sass/auth.scss")))
+/******/ 	__webpack_require__.O(undefined, ["assets/css/site","assets/css/auth","assets/css/app"], () => (__webpack_require__("./resources/sass/site.scss")))
+/******/ 	__webpack_require__.O(undefined, ["assets/css/site","assets/css/auth","assets/css/app"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["assets/css/site","assets/css/auth","assets/css/app"], () => (__webpack_require__("./resources/css/auth.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["assets/css/site","assets/css/auth","assets/css/app"], () => (__webpack_require__("./resources/css/site.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

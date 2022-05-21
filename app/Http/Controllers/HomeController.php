@@ -2,20 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Models\Plan;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -23,9 +16,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        debug(
-            timeAgo('2022-01-03 10:00:00')
-        );
-        return view('home');
+        $products = Store::limit(6)->get();
+        $blogs = Blog::limit(3)->get();
+
+        return view('site.welcome', [
+            'products' => $products,
+            'blogs'    => $blogs,
+        ]);
     }
 }
