@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,7 +36,9 @@ class RegisterController extends Controller
 
     protected function index($plan)
     {
-        dd($plan);
+        return view('auth.register', [
+            'plan' => $plan
+        ]);
     }
 
     /**
@@ -53,7 +56,7 @@ class RegisterController extends Controller
             'phone'    => ['required', 'string', 'max:20'],
             'email'    => ['required', 'string', 'email:filter', 'max:255', 'unique:users', 'different:child_email'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'terms'    => ['required'],
+            //'terms'    => ['required'],
 
             // child
             'child_name'     => ['required', 'string', 'max:255'],
@@ -71,15 +74,28 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    public function create($plan)
     {
-        $parent = $this->parent($data);
+        $this->validator(request()->all())->validate();
+
+        $parent = $this->parent(
+            request()->only(['name', 'surname', 'phone', 'email', 'password']) + ['plan_id' => $plan->id]
+        );
         $parent->assignRole('parent');
 
-        $child = $this->child($data, $parent);
+        $child = $this->child(
+            request()->only([
+                'child_name', 'child_surname', 'child_email', 'child_dob', 'child_password', 'child_gender'
+            ]) + ['plan_id' => $plan->id], $parent
+        );
         $child->assignRole('user');
 
-        return $parent;
+        Auth::login($parent);
+
+        return response()->json([
+            'status' => 'success',
+            'redirect' =>  route('my.account')
+        ], 201);
     }
 
 
@@ -91,13 +107,15 @@ class RegisterController extends Controller
     public function child(array $data, User $parent)
     {
         return User::create([
-            'name'      => $data['child_name'],
-            'surname'   => $data['child_surname'],
-            'email'     => $data['child_email'],
-            'gender'    => collect(['male','female'])->contains($data['child_gender']) ? $data['child_gender']:'unknown',
-            'dob'       => carbon($data['child_dob'])->format('Y-m-d'),
-            'password'  => Hash::make($data['child_password']),
-            'parent_id' => $parent->id
+            'name'        => $data['child_name'],
+            'surname'     => $data['child_surname'],
+            'email'       => $data['child_email'],
+            'gender'      => collect(['male','female'])->contains($data['child_gender']) ? $data['child_gender']:'unknown',
+            'dob'         => carbon($data['child_dob'])->format('Y-m-d'),
+            'password'    => Hash::make($data['child_password']),
+            'parent_id'   => $parent->id,
+            'plan_id'     => $data['plan_id'],
+            'plan_status' => 'no'
         ]);
     }
 
@@ -113,6 +131,8 @@ class RegisterController extends Controller
             'email'    => $data['email'],
             'phone'    => $data['phone'],
             'password' => Hash::make($data['password']),
+            'plan_id'     => $data['plan_id'],
+            'plan_status' => 'no'
         ]);
     }
 }

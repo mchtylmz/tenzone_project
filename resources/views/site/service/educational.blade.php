@@ -10,7 +10,7 @@
                         <h1 class="title">{{ $service->name }}..</h1>
                         <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla id quam
                             ut lacinia. Nulla ullamcorper luctus ex, in sodales enim sollicitudin ac</p>
-                        <a href="#" class="btn btn-primary">Book a session for free</a>
+                        <a href="{{route('book.free')}}" class="btn btn-primary">Book a session for free</a>
                     </div>
                 </div>
 
@@ -186,7 +186,7 @@
                         <h2 class="title">You are not sure about our services</h2>
                         <p>The generated Lorem Ipsum is therefore always free from repetition, injected humour, or
                             non-characteristic words etc.</p>
-                        <a href="#" class="btn btn-light">Book a session for free <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{route('book.free')}}" class="btn btn-light">Book a session for free <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
 
@@ -225,21 +225,30 @@
                 <div class="tab-pane fade show active" id="tab-monthly" role="tabpanel">
                     <div class="owl-carousel owl-theme" id="tz-slider-membership">
                         @foreach($plans as $plan)
-                            <div class="item">
-                                <div class="tz-pricing">
-                                    <h3 class="name">{{ $plan->name }}</h3>
-                                    <h4 class="price" style="color:#4060AA">£{{ number_format($plan->month_price, 0) }} <span>/month</span></h4>
-                                    <span class="list-title">What You'll Get</span>
-                                    <ul class="list-unstyled">
-                                        <li>Activity Sheets</li>
-                                        <li>Worksheets</li>
-                                        <li>Weekly Feedback</li>
-                                    </ul>
-                                    <a href="{{ route('register', [$plan->slug, 1]) }}" class="btn btn-outline-primary btn-block">
-                                        Choose
-                                    </a>
+                            @if($plan->type == 'monthly')
+                                <div class="item">
+                                    <div class="tz-pricing">
+                                        <h3 class="name">{{ $plan->name }}</h3>
+                                        <h4 class="price" style="color:#4060AA">£{{ number_format($plan->price, 0) }} <span>/month</span></h4>
+                                        <span class="list-title">What You'll Get</span>
+                                        <ul class="list-unstyled">
+                                            <li>Activity Sheets</li>
+                                            <li>Worksheets</li>
+                                            <li>Weekly Feedback</li>
+                                        </ul>
+
+                                        @auth()
+                                            <a href="{{ route('update.plan', $plan->slug) }}" class="btn btn-outline-primary btn-block">
+                                                Choose
+                                            </a>
+                                        @else
+                                            <a href="{{ route('register', $plan->slug) }}" class="btn btn-outline-primary btn-block">
+                                                Choose
+                                            </a>
+                                        @endauth
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
@@ -247,21 +256,30 @@
                 <div class="tab-pane fade" id="tab-annually" role="tabpanel">
                     <div class="owl-carousel owl-theme" id="tz-slider-membership2">
                         @foreach($plans as $plan)
-                            <div class="item">
-                                <div class="tz-pricing">
-                                    <h3 class="name">{{ $plan->name }}</h3>
-                                    <h4 class="price" style="color:#4060AA">£{{ number_format($plan->year_price / 12, 0) }} <span>/month</span></h4>
-                                    <span class="list-title">What You'll Get</span>
-                                    <ul class="list-unstyled">
-                                        <li>Activity Sheets</li>
-                                        <li>Worksheets</li>
-                                        <li>Weekly Feedback</li>
-                                    </ul>
-                                    <a href="{{ route('register', [$plan->slug, 12]) }}" class="btn btn-outline-primary btn-block">
-                                        Choose
-                                    </a>
+                            @if($plan->type == 'yearly')
+                                <div class="item">
+                                    <div class="tz-pricing">
+                                        <h3 class="name">{{ $plan->name }}</h3>
+                                        <h4 class="price" style="color:#4060AA">£{{ number_format($plan->price / 12, 0) }} <span>/month</span></h4>
+                                        <span class="list-title">What You'll Get</span>
+                                        <ul class="list-unstyled">
+                                            <li>Activity Sheets</li>
+                                            <li>Worksheets</li>
+                                            <li>Weekly Feedback</li>
+                                        </ul>
+
+                                        @auth()
+                                            <a href="{{ route('update.plan', $plan->slug) }}" class="btn btn-outline-primary btn-block">
+                                                Choose
+                                            </a>
+                                        @else
+                                            <a href="{{ route('register', $plan->slug) }}" class="btn btn-outline-primary btn-block">
+                                                Choose
+                                            </a>
+                                        @endauth
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>

@@ -4,7 +4,6 @@ $(function() {
     $(document).on('keyup keypress keydown', '.form-control', function(e){
         $(this).removeClass('has-error');
     });
-    /*
     $('.datepicker').datepicker({
         autoclose: true,
         endDate: new Date(),
@@ -12,7 +11,6 @@ $(function() {
         disableTouchKeyboard: true,
         format: 'yyyy-mm-dd'
     });
-    */
     $.validator.addMethod(
         'emailCustom',
         function(value, element) {
@@ -20,10 +18,7 @@ $(function() {
             return regexEmail.test(value);
         }
     );
-    $('form.loading').submit(function (e) {
-        $(this).find('button[type=submit]').attr('disabled', true);
-        $(this).find('button[type=submit] > i').removeClass('d-none');
-    });
+
     $('form#login').validate({
         errorClass: "has-error",
         validClass: "has-success",
@@ -34,6 +29,39 @@ $(function() {
         messages: typeof ruleMessages != 'undefined' ? ruleMessages : {},
         submitHandler: function (form) {
             ajaxForm(form);
+        }
+    });
+
+    var allPrevBtn = $('.btn-prev'),
+        allNextBtn = $('.btn-next');
+
+    allPrevBtn.click(function(){
+        var curStep = $(this).closest(".step-content"),
+            prevStep = $(this).data('prev'),
+            curStepBtn = curStep.attr("id");
+
+        $('#' + curStepBtn).hide();
+        $('#' + prevStep).fadeIn();
+    });
+    allNextBtn.click(function(){
+        var curStep = $(this).closest(".step-content"),
+            nextStep = $(this).data('next'),
+            curStepBtn = curStep.attr("id"),
+            curInputs = curStep.find("input[type='text'],input[type='password'],input[type='email'],input[type='tel']"),
+            isValid = true;
+
+        $(".form-control").removeClass("has-error");
+        for(let i = 0; i < curInputs.length; i++){
+            if (!curInputs[i].validity.valid) {
+                isValid = false;
+                $(curInputs[i]).addClass("has-error");
+            }
+        }
+        $('form#register').valid();
+
+        if (isValid && nextStep == 'step2' && $('form#register').valid()) {
+            $('#' + curStepBtn).hide();
+            $('#' + nextStep).fadeIn();
         }
     });
     $('form#register').validate({
@@ -74,6 +102,8 @@ $(function() {
             success: function(response, textStatus, xhr){
                 if (okCallback) {
                     okCallback();
+                } else if (response.redirect) {
+                    window.location.href = response.redirect;
                 } else if ([200, 201, 204].includes(xhr.status)) {
                     location.reload();
                 } else {

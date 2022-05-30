@@ -15,7 +15,7 @@
                         <p class="text">
                             {{ __('The TEN Academy is an online platform for individuals with autism and their families') }}
                         </p>
-                        <a href="#" id="" class="btn btn-primary">{{ __('Book a session for free') }}</a>
+                        <a href="{{route('book.free')}}" id="" class="btn btn-primary">{{ __('Book a session for free') }}</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div  class="pt-1 pb-5 text">
-                            <a href="#" class="btn btn-primary">{{ __('Book Now') }}</a>
+                            <a href="{{route('book.free')}}" class="btn btn-primary">{{ __('Book Now') }}</a>
                         </div>
                     </div>
                     <!-- end card -->
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="pt-1 pb-5 text">
-                            <a href="#" class="btn btn-primary color-but-2">{{ __('Book Now') }}</a>
+                            <a href="{{route('book.free')}}" class="btn btn-primary color-but-2">{{ __('Book Now') }}</a>
                         </div>
                     </div>
                     <!-- end card -->
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div  class="pt-1 pb-5 text" style="">
-                            <a href="#" class="btn btn-primary color-but-3">{{ __('Book Now') }}</a>
+                            <a href="{{route('book.free')}}" class="btn btn-primary color-but-3">{{ __('Book Now') }}</a>
                         </div>
                     </div>
                     <!-- end card -->
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="pt-1 pb-5 text" style="">
-                        <a href="#" class="btn btn-primary">{{ __('Book Now') }}</a>
+                        <a href="{{route('book.free')}}" class="btn btn-primary">{{ __('Book Now') }}</a>
                     </div>
                 </div>
                 <!-- end card -->
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                     <div  class="pt-1 pb-5 text" style="">
-                        <a href="#" class="btn btn-primary color-but-2">{{ __('Book Now') }}</a>
+                        <a href="{{route('book.free')}}" class="btn btn-primary color-but-2">{{ __('Book Now') }}</a>
                     </div>
                 </div>
                 <!-- end card -->
@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     <div  class="pt-1 pb-5 text" style="">
-                        <a href="#" class="btn btn-primary color-but-3">{{ __('Book Now') }}</a>
+                        <a href="{{route('book.free')}}" class="btn btn-primary color-but-3">{{ __('Book Now') }}</a>
                     </div>
                 </div>
                 <!-- end card -->
@@ -169,7 +169,7 @@
                             {{ __(' Lorem Ipsum is simply dummy text of the printing and typesetting industry. <br> Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. <br> The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.') }}
 
                         </p>
-                        <a href="" class="btn btn-primary btn-about" style="">{{ __('Book a session for free') }}</a>
+                        <a href="{{route('book.free')}}" class="btn btn-primary btn-about" style="">{{ __('Book a session for free') }}</a>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\hasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Pharaonic\Laravel\Settings\Traits\Settingable;
@@ -21,6 +22,7 @@ class User extends Authenticatable
     use Settingable;
     use SoftDeletes;
     use HasRoles;
+    use Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -32,8 +34,11 @@ class User extends Authenticatable
         'name',
         'surname',
         'email',
+        'phone',
         'gender',
         'dob',
+        'plan_id',
+        'plan_status',
         'email_verified_at',
         'password',
         'deleted_at',

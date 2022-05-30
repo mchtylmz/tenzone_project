@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('phone', 20)->nullable();
             $table->enum('gender', ['unknown', 'male', 'female'])->default('unknown');
             $table->date('dob')->nullable();
+            $table->integer('plan_id')->default(0);
+            $table->integer('plan_credit')->default(2);
+            $table->enum('plan_status', ['yes', 'no'])->default('no');
             $table->string('password');
             $table->enum('status', ['active', 'passive'])->default('active');
             $table->rememberToken();

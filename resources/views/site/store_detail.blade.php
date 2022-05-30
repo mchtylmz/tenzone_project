@@ -24,6 +24,7 @@
                             <h2 class="price">£{{ $product->price }}</h2>
 
                             <form action="{{ route('cart.save', $product->id) }}" method="post">
+                                @csrf
                                 <button type="submit" class="btn btn-primary">
                                     <img src="{{ asset('images/icons/shop-white.svg') }}" alt="{{ $product->title }}">
                                     {{ __('Add to basket') }}

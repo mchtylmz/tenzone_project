@@ -87,7 +87,11 @@
                         <form action="" class="form">
                             <div class="row">
                                 <div class="col-9"><input type="email" class="form-control" placeholder="Enter your mail"></div>
-                                <div class="col-3 ps-0"><a href="#" class="btn btn-primary"><i class="fa fa-arrow-right"></i></a></div>
+                                <div class="col-3 ps-0">
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </form>
                         <ul class="list-social list-unstyled">

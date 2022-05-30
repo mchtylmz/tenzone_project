@@ -47,6 +47,11 @@ class LoginController extends Controller
      */
     public function authenticated(Request $request, $user)
     {
-        //
+        session()->put('plan_id', $user->plan_id);
+        session()->put('plan_status', $user->plan_status);
+        return response()->json([
+            'status' => 'success',
+            'redirect' =>  route('my.account')
+        ], 200);
     }
 }

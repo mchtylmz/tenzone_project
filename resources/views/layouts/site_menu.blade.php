@@ -40,10 +40,22 @@
                         <img src="{{ asset('images/icons/shop.svg') }}" alt="icon">
                     </a>
                 </li>
-                <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-primary" href="{{ route('plans') }}">{{ __('Sign Up') }}</a>
-                </li>
+                @auth()
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary" href="{{ route('my.account') }}">{{ __('My Account') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light btn-cart" href="{{ route('my.logout')}}">
+                            <img src="{{ asset('images/logout.svg') }}" alt="icon">
+                        </a>
+                    </li>
+
+                @else
+                    <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary" href="{{ route('plans') }}">{{ __('Sign Up') }}</a>
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>
@@ -74,7 +86,15 @@
         <a href="{{ route('cart') }}" class="btn btn-light btn-cart">
             <img src="{{ asset('images/icons/shop-dark.svg') }}">
         </a>
-        <a href="{{ route('login') }}" class="btn btn-outline-light ms-3">{{ __('Login') }}</a>
-        <a href="{{ route('plans') }}" class="btn btn-light ms-3">{{ __('Sign Up') }}</a>
+
+        @auth()
+            <a href="{{ route('my.account') }}" class="btn btn-light ms-3">{{ __('My Account') }}</a>
+            <a href="{{ route('my.logout') }}" class="btn btn-outline-light btn-cart">
+                <i class="fa fa-sign-out-alt"></i>
+            </a>
+        @else
+            <a href="{{ route('login') }}" class="btn btn-outline-light ms-3">{{ __('Login') }}</a>
+            <a href="{{ route('plans') }}" class="btn btn-light ms-3">{{ __('Sign Up') }}</a>
+        @endauth
     </div>
 </div>

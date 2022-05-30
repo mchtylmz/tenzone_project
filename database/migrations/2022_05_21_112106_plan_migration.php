@@ -17,8 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('name');
-            $table->decimal('month_price');
-            $table->decimal('year_price');
+            $table->text('description')->nullable();
+            $table->decimal('price');
+            $table->integer('credit')->default(2);
+            $table->string('stripe_plan')->nullable();
+            $table->enum('type', ['monthly', 'yearly'])->default('monthly');
             $table->enum('status', ['active', 'passive'])->default('active');
             $table->timestamps();
         });

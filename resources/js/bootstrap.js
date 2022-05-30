@@ -1,4 +1,4 @@
-window._ = require('lodash');
+ window._ = require('lodash');
 
 try {
     require('bootstrap');
@@ -6,6 +6,7 @@ try {
     window.Popper = require('@popperjs/core');
     window.validate = require('jquery-validation');
     window.Swal = require('sweetalert2');
+    window.datepicker = require('bootstrap-datepicker');
 
     window.SwalAlert = function(options) {
         let extOptions = $.extend({

@@ -1,8 +1,10 @@
-<x-panel-layout>
-    <x-slot name="title">{{ __('Not Found') }}</x-slot>
+<x-site-layout>
+    <x-slot name="style">home.css</x-slot>
+    <x-slot name="title">{{ __('404') }}</x-slot>
 
-    <div class="container">
-
-        <h1>{{ __('Not Found') }}</h1>
-    </div>
-</x-panel-layout>
+    <section class="pb-5 mb-5 pt-0">
+        <div class="container text-center pt-5">
+            <h2>{{ __('404 Not Found') }}</h2>
+        </div>
+    </section>
+</x-site-layout>
