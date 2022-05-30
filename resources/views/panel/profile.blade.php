@@ -27,7 +27,7 @@
                 @endforeach
             </div>
             @endif
-            <a href="#" class="btn btn-primary btn-block mb-20px">Add a child account</a>
+            <a href="{{ route('parent.child.add') }}" class="btn btn-primary btn-block mb-20px">Add a child account</a>
             @endrole
 
         </div>

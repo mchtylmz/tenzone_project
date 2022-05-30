@@ -102,7 +102,7 @@ Route::middleware(['auth', 'plan', 'role:parent'])
         Route::get('/', [PanelParentController::class, 'index'])->name('index');
 
         Route::get('/child-add', [PanelParentController::class, 'child_add'])->name('child.add');
-        Route::post('/child-add', [PanelParentController::class, 'child_store'])->name('child.add');
+        Route::post('/child-add', [PanelParentController::class, 'child_store'])->name('child.store');
     });
 
 

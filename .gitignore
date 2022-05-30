@@ -16,7 +16,7 @@ yarn-error.log
 /.vscode
 /images/*
 /public/images/*
-
+/storage/*
 
 # OS X
 .DS_Store
