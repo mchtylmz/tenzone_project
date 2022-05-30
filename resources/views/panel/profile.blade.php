@@ -34,6 +34,9 @@
 
         <div class="col-lg-8">
             <div class="tm-profile-card tm-profile-content">
+                @if (session('message'))
+                    <div class="alert alert-info">{{ session('message') }}</div>
+                @endif
                 <h4 class="bg-light p-2 mb-3">
                     {{ __('role.' . auth()->user()->getRoleNames()[0]) }}
                 </h4>

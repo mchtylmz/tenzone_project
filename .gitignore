@@ -14,7 +14,8 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-
+/images/*
+/public/images/*
 
 
 # OS X

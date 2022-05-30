@@ -73,6 +73,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/my-profile', [HomeController::class, 'myprofile_save'])->name('my.profile');
 
     Route::get('/profile/{username}', [HomeController::class, 'profile'])->name('user.profile');
+    Route::post('/profile/{username}', [HomeController::class, 'profile_save'])->name('user.profile');
+
     Route::get('/logout', [HomeController::class, 'logout'])->name('my.logout');
     Route::get('/plan/subscribe', [PlanController::class, 'subscribe'])->name('plan.subscribe');
     Route::get('/plan/update/{plan_slug}', [PlanController::class, 'update'])->name('update.plan');
@@ -98,6 +100,9 @@ Route::middleware(['auth', 'plan', 'role:parent'])
     ->group(function () {
 
         Route::get('/', [PanelParentController::class, 'index'])->name('index');
+
+        Route::get('/child-add', [PanelParentController::class, 'child_add'])->name('child.add');
+        Route::post('/child-add', [PanelParentController::class, 'child_store'])->name('child.add');
     });
 
 
