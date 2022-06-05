@@ -6,7 +6,7 @@
             <div class="tm-profile-card tm-profile-left">
                 <div class="content mb-4">
                     <div class="img">
-                        <img src="{{ asset('images/profile2.png') }}" alt="profile">
+                        <img src="{!! asset(user()->image) !!}" alt="profile">
                         <div class="online"></div>
                     </div>
                     <h5>{{ auth()->user()->name }} {{ auth()->user()->surname }}</h5>

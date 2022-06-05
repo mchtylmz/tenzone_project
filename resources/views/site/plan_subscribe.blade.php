@@ -50,7 +50,7 @@
                             form.addEventListener('submit', async (e) => {
                                 e.preventDefault()
 
-                                cardBtn.disabled = true
+                                cardBtn.disabled = false
                                 const { setupIntent, error } = await stripe.confirmCardSetup(
                                     cardBtn.dataset.secret, {
                                         payment_method: {
@@ -74,7 +74,7 @@
                                     form.appendChild(token)
 
                                     form.submit();
-                                    cardBtn.disable = false
+                                    cardBtn.disable = true
                                 }
                             })
                         </script>

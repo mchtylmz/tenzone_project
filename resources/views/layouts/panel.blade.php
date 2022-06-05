@@ -8,7 +8,8 @@
     <link rel="icon" href="{!! asset(settings()->site_favicon) !!}">
 
     <title>{{ $title }} - {{ config('app.name', 'Tenzone') }}</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" type="text/css">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" type="text/css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" type="text/css">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('assets/css/panel.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
@@ -36,29 +37,7 @@
         </div>
         <div class="links">
             <ul class="list-unstyled">
-                @hasrole('superadmin|admin')
-                <li>
-                    <a href="programme.html" class="active">
-                        <div class="icon"><i class="ri-file-list-2-line"></i></div> ADMİN
-                    </a>
-                </li>
-                @else
-                    <li>
-                        <a href="programme.html" class="active">
-                            <div class="icon"><i class="ri-file-list-2-line"></i></div> Programme
-                        </a>
-                    </li>
-                    <li>
-                        <a href="reports.html">
-                            <div class="icon"><i class="ri-funds-box-line"></i></div> Reports
-                        </a>
-                    </li>
-                    <li>
-                        <a href="connect.html">
-                            <div class="icon"><i class="ri-chat-smile-2-line"></i></div> Connect
-                        </a>
-                    </li>
-                    @endrole
+                @include('panel.menu')
             </ul>
         </div>
         <div class="alt">
@@ -93,19 +72,22 @@
                 </ul>
             </div>
 
-            <a class="btn btn-icon" href="{{ route('messages.seen') }}" role="button">
+            <a class="btn btn-icon d-flex align-items-center gap-2" href="{{ route('messages.seen') }}" role="button">
                 <i class="ri-mail-open-line"></i>
+                @if($count = user()->message_count())
+                    <h5 class="mb-0 text-danger">{{ $count }}</h5>
+                @endif
             </a>
 
-            @hasanyrole('user')
-            <a href="#" class="btn btn-opacity-success fs-14 fw-medium ms-4 me-3 credit">
-                {{ user()->plan_credit }} Credit
+            @hasanyrole('user|parent')
+            <a href="{{ route('buy.credit') }}" class="btn btn-opacity-success fs-14 fw-medium ms-4 me-3 credit">
+                {{ credit() }} Credit
             </a>
             @endhasanyrole
 
             <div class="dropdown tm-topbar-profile">
                 <a class="btn flex-start items-center" href="#" role="button" id="dropdownNotification" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="img"><img src="{{asset('images/profile.png')}}" alt="profile"></div>
+                    <div class="img"><img src="{!! asset(user()->image) !!}" alt="profile"></div>
                     <div class="right">
                         <span class="name">{{ auth()->user()->fullname }}</span>
                         <span class="desc">{{ __('role.' . auth()->user()->getRoleNames()[0]) }}</span>
@@ -121,7 +103,7 @@
         </div>
 
     </div>
-    <div class="container-fluid pt-4">
+    <div class="container-fluid pt-4 pb-4">
         {{$slot}}
     </div>
 </main>

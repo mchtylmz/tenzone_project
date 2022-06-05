@@ -925,12 +925,16 @@ img {
     border-right: 0;
 }
 
-.tm-calendar-item .btn i {
+.datepicker-days {
+    padding: 5px 12px;
+}
+
+.tm-calendar-item .btn:not(.activite) i {
     font-size: 20px;
     margin-right: 8px;
 }
 
-.tm-calendar-item .btn {
+.tm-calendar-item .btn:not(.activite) {
     display: flex;
     align-items: center;
     color: #5E5E5E;

@@ -52,6 +52,7 @@ $(function() {
 
         $(".form-control").removeClass("has-error");
         for(let i = 0; i < curInputs.length; i++){
+            console.log(curInputs[i].validity.valid);
             if (!curInputs[i].validity.valid) {
                 isValid = false;
                 $(curInputs[i]).addClass("has-error");

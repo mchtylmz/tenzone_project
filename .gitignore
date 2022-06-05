@@ -17,6 +17,9 @@ yarn-error.log
 /images/*
 /public/images/*
 /storage/*
+*.jpg
+*.png
+*.jpeg
 
 # OS X
 .DS_Store

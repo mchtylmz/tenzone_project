@@ -2,11 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Activities;
 use App\Models\Blog;
+use App\Models\Connects;
 use App\Models\Plan;
 use App\Models\Service;
 use App\Models\Store;
 use App\Models\User;
+use App\Models\Weeks;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -54,6 +57,26 @@ class AppServiceProvider extends ServiceProvider
         // username
         Route::bind('username', function ($email) {
             return User::whereEmail($email)->firstOrFail();
+        });
+        // child_id
+        Route::bind('child_id', function ($id) {
+            return User::findOrFail($id);
+        });
+        // user_id
+        Route::bind('user_id', function ($id) {
+            return User::findOrFail($id);
+        });
+        // activite_id
+        Route::bind('activite_id', function ($id) {
+            return Activities::findOrFail($id);
+        });
+        // week_id
+        Route::bind('week_id', function ($id) {
+            return Weeks::findOrFail($id);
+        });
+        // meet_id
+        Route::bind('meet_id', function ($id) {
+            return Connects::findOrFail($id);
         });
     }
 }

@@ -11286,4 +11286,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.form-control.has-success {
+    border: solid 1px green !important;
+}
+.form-control.has-error {
+    border: solid 1px red !important;
+}
 

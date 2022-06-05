@@ -17,8 +17,12 @@ class PlanMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->plan_id && $request->user()->plan_status == 'no') {
-            return redirect()->route('plan.subscribe');
+        if ($request->user()->plan_status == 'no') {
+            if ($request->user()->plan_id) {
+                return redirect()->route('plan.subscribe');
+            } else {
+                return redirect()->route('plans');
+            }
         }
         return $next($request);
     }

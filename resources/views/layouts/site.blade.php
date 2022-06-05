@@ -19,7 +19,8 @@
         <link href="{{ asset('assets/css/' . $style) }}" rel="stylesheet">
     @endif
     <link href="{{ asset('assets/css/site.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" type="text/css">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" type="text/css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" type="text/css">
 
     <!-- Scripts -->
     @stack('scripts')

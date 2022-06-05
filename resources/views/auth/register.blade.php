@@ -8,10 +8,12 @@
     <link rel="icon" href="{!! asset(settings()->site_favicon) !!}">
 
     <title>{{ __('Register') }} - {{ config('app.name', 'Laravel') }}</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" type="text/css">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" type="text/css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('assets/css/default.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/remixicon/remixicon.css') }}" rel="stylesheet">
 
@@ -142,7 +144,7 @@
                             <div class="icon">
                                 <i class="ri-lock-password-line"></i>
                             </div>
-                            <input type="password" class="form-control" minlength="8" placeholder="********" id="password"
+                            <input type="password" class="form-control" minlength="6" placeholder="********" id="password"
                                    name="password" required>
                         </div>
                     </div>
@@ -153,7 +155,7 @@
                             <div class="icon">
                                 <i class="ri-lock-password-line"></i>
                             </div>
-                            <input type="password" class="form-control" minlength="8" placeholder="********"
+                            <input type="password" class="form-control" minlength="6" placeholder="********"
                                    id="password_confirmation" name="password_confirmation" required>
                         </div>
                     </div>
@@ -232,7 +234,7 @@
                         <div class="tm-input">
                             <div class="icon"><i class="ri-lock-password-line"></i>
                             </div>
-                            <input type="password" class="form-control" minlength="8" placeholder="*******"
+                            <input type="password" class="form-control" minlength="6" placeholder="*******"
                                    id="child_password" name="child_password" required/>
                         </div>
                     </div>

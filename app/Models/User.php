@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,6 +24,7 @@ class User extends Authenticatable
     use SoftDeletes;
     use HasRoles;
     use Billable;
+    use Loggable;
 
     /**
      * The attributes that are mass assignable.
@@ -91,6 +93,14 @@ class User extends Authenticatable
     }
 
     /**
+     * @return string
+     */
+    public function getImageAttribute(): string
+    {
+        return sprintf('upload/users-avatar/%s', $this->attributes['avatar']);
+    }
+
+    /**
      * @return HasMany
      */
     public function childs(): HasMany
@@ -104,6 +114,42 @@ class User extends Authenticatable
     public function parent(): hasOne
     {
         return $this->hasOne( 'App\Models\User', 'id', 'parent_id' );
+    }
+
+    public function weeks(): hasMany
+    {
+        return $this->hasMany( Weeks::class, 'user_id', 'id' );
+    }
+
+    public function reports(): hasMany
+    {
+        return $this->hasMany( Reports::class, 'user_id', 'id' );
+    }
+
+    public function meets(): hasOne
+    {
+        return $this->hasOne( Connects::class, 'teacher_id', 'id' );
+    }
+
+    public function connects(): hasOne
+    {
+        return $this->hasOne( Connects::class, 'user_id', 'id' );
+    }
+
+    public function plan()
+    {
+        $subscribe = $this->subscriptions()->first();
+        if ($subscribe) {
+            return Plan::where('stripe_plan', $subscribe->stripe_price)->first();
+        }
+        return false;
+    }
+
+    public function message_count(): int
+    {
+        return ChMessage::where('to_id', user()->id)
+            ->where('seen', 0)
+            ->count();
     }
 
 }

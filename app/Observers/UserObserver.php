@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\Models\Activities;
 use App\Models\User;
+use App\Models\Weeks;
 use App\Notifications\WelcomeNotification;
 
 class UserObserver
@@ -26,6 +28,26 @@ class UserObserver
      */
     public function created(User $user)
     {
+        if ($user->parent_id) {
+            $week = Weeks::create([
+                'user_id'    => $user->id,
+                'title'      => trans('Introduction'),
+                'start_date' => date('Y-m-d'),
+                'end_date'   => date('Y-m-d', strtotime('+10 days')),
+            ]);
+
+            for ($i = 0; $i <= 4; $i++) {
+                Activities::create([
+                    'week_id'    => $week->id,
+                    'teacher_id' => 1,
+                    'title'      => 'Introduction Work ' . $i,
+                    'type'       => 'Child ' . $i,
+                    'watch'      => $i >= 3 ? 'https://www.youtube.com/watch?v=YbJOTdZBX1g' : null,
+                    'download'   => $i >= 3 ? 'upload/files/tenzone.pdf' : null,
+                ]);
+            }
+        }
+
         $user->notify(new WelcomeNotification($user));
     }
 

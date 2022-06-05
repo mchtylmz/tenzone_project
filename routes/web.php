@@ -16,7 +16,11 @@ use \App\Http\Controllers\User\HomeController as PanelUserController;
 
 use \App\Http\Controllers\Parent\HomeController as PanelParentController;
 
+use \App\Http\Controllers\Teacher\HomeController as PanelTeacherController;
+
 use \App\Http\Controllers\Admin\HomeController as PanelAdminController;
+use \App\Http\Controllers\Admin\UserController as PanelAdminUserController;
+use \App\Http\Controllers\Admin\OrderController as PanelAdminOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +83,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/plan/subscribe', [PlanController::class, 'subscribe'])->name('plan.subscribe');
     Route::get('/plan/update/{plan_slug}', [PlanController::class, 'update'])->name('update.plan');
     Route::post('/plan/checkout/{plan_slug}', [PlanController::class, 'checkout'])->name('plan.checkout');
+
+    Route::post('/send-submission/{activite_id}', [PanelUserController::class, 'storeSubmission'])->name('send.submission');
+    Route::post('/meet-cancel/{meet_id}', [HomeController::class, 'meet_cancel'])->name('meet.cancel');
+    Route::post('/meet-book/{meet_id}', [HomeController::class, 'meet_book'])->name('meet.book');
+
+    Route::get('/buy-credit', [HomeController::class, 'buy_credit'])->name('buy.credit');
+    Route::get('/confirm-credit', [HomeController::class, 'confirm_credit'])->name('confirm.credit');
+    Route::post('/update-credit', [HomeController::class, 'update_credit'])->name('update.credit');
 });
 
 
@@ -89,6 +101,11 @@ Route::middleware(['auth', 'plan', 'role:user'])
     ->group(function () {
 
         Route::get('/', [PanelUserController::class, 'index'])->name('index');
+        Route::get('/reports', [PanelUserController::class, 'reports'])->name('reports');
+        Route::get('/connect', [PanelUserController::class, 'connect'])->name('connect');
+
+        Route::get('/book/teachers', [PanelUserController::class, 'book_teachers'])->name('book.teachers');
+        Route::get('/book/teacher/{user_id}', [PanelUserController::class, 'book_teacher'])->name('book.teacher');
     });
 
 
@@ -100,17 +117,63 @@ Route::middleware(['auth', 'plan', 'role:parent'])
     ->group(function () {
 
         Route::get('/', [PanelParentController::class, 'index'])->name('index');
+        Route::get('/programme/{child_id}', [PanelParentController::class, 'child_programme'])
+            ->name('child_programme');
+
+        Route::get('/reports', [PanelParentController::class, 'reports'])->name('reports');
+        Route::get('/report/{child_id}', [PanelParentController::class, 'child_report'])
+            ->name('child_report');
+
+        Route::get('/connect', [PanelParentController::class, 'connect'])->name('connect');
+        Route::get('/book/teachers', [PanelParentController::class, 'book_teachers'])->name('book.teachers');
+        Route::get('/book/teacher/{user_id}', [PanelParentController::class, 'book_teacher'])->name('book.teacher');
 
         Route::get('/child-add', [PanelParentController::class, 'child_add'])->name('child.add');
         Route::post('/child-add', [PanelParentController::class, 'child_store'])->name('child.store');
     });
 
 
+// teacher
+Route::middleware(['auth', 'role:teacher'])
+    ->prefix('teacher')
+    ->name('teacher.')
+    ->group(function () {
+
+        Route::get('/', [PanelTeacherController::class, 'index'])->name('index');
+        Route::get('/programme/{child_id}', [PanelTeacherController::class, 'child_programme'])
+            ->name('child_programme');
+
+        Route::post('/add-week', [PanelTeacherController::class, 'store_week'])->name('add.week');
+        Route::post('/add-activity/{week_id}', [PanelTeacherController::class, 'store_activity'])->name('add.activity');
+        Route::delete('/delete-activite/{activite_id}', [PanelTeacherController::class, 'delete_activite'])
+            ->name('delete.activite');
+
+        Route::get('/reports', [PanelTeacherController::class, 'reports'])->name('reports');
+        Route::get('/report/{child_id}', [PanelTeacherController::class, 'child_report'])
+            ->name('child_report');
+        Route::post('/add-report/{child_id}', [PanelTeacherController::class, 'store_report'])->name('add.report');
+
+        Route::get('/connect', [PanelTeacherController::class, 'connect'])->name('connect');
+
+    });
+
 // admin
-Route::middleware(['auth', 'role:superamdin|admin'])
+Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
 
         Route::get('/', [PanelAdminController::class, 'index'])->name('index');
+        Route::get('/orders', [PanelAdminOrderController::class, 'index'])->name('orders');
+        Route::get('/connects', [PanelAdminController::class, 'connects'])->name('connects');
+
+        Route::prefix('user')
+            ->name('user.')
+            ->group(function () {
+
+                Route::get('/add', [PanelAdminUserController::class, 'index'])->name('add');
+                Route::post('/store', [PanelAdminUserController::class, 'store'])->name('store');
+            });
+
     });
+

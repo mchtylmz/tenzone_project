@@ -18,4 +18,14 @@ $(document).ready(function(){
         $(".tm-sidebar").toggleClass("d-none");
         $(".tm-sidebar").removeClass("d-flex");
     });
+    $(document).on('change', ".tm-file-input", function() {
+        if ($(this).val()) {
+            var filename = $(this).val().split("\\");
+            filename = filename[filename.length - 1];
+            $(this).attr('data-content', filename);
+        }
+    });
+    $(document).on('submit', "form.loading", function() {
+        $(this).find('button[type=submit]').attr('disabled', true).append('<i class="fa fa-spinner fa-pulse"></i>');
+    });
 });
