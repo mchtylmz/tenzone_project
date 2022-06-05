@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
 class MessagesController extends Controller
 {
     protected $perPage = 30;
@@ -86,7 +87,8 @@ class MessagesController extends Controller
         if ($request['type'] == 'user') {
             $fetch = User::where('id', $request['id'])->first();
             if($fetch){
-                $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
+                // $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
+                $userAvatar = $fetch->avatar;
             }
         }
 

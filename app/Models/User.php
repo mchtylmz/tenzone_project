@@ -97,7 +97,7 @@ class User extends Authenticatable
      */
     public function getImageAttribute(): string
     {
-        return sprintf('upload/users-avatar/%s', $this->attributes['avatar']);
+        return sprintf('upload/users-avatar/%s', $this->original['avatar']);
     }
 
     /**
