@@ -20,6 +20,9 @@ yarn-error.log
 *.jpg
 *.png
 *.jpeg
+*.zip
+*.rar
+*.sql
 
 # OS X
 .DS_Store
