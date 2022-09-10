@@ -42,6 +42,10 @@ class AppServiceProvider extends ServiceProvider
         Route::bind('plan_slug', function ($slug) {
             return Plan::whereSlug($slug)->firstOrFail();
         });
+        // Plan id
+        Route::bind('plan_id', function ($id) {
+            return Plan::findOrFail($id);
+        });
         // Store
         Route::bind('store_slug', function ($slug) {
             return Store::whereSlug($slug)->firstOrFail();

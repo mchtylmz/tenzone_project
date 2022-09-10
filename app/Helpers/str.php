@@ -22,3 +22,12 @@ function str_match($string, $pattern)
 {
     return Str::match($string, $pattern);
 }
+
+/**
+ * @param $string
+ * @return string
+ */
+function str_slug($string)
+{
+    return Str::slug($string);;
+}

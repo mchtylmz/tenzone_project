@@ -16,15 +16,15 @@ class ServiceSeeder extends Seeder
     public function run()
     {
         Service::create([
-            'slug' => 'educational',
-            'name' => 'Educational Programs'
+            'slug' => 'tailored',
+            'name' => 'Tailored Programme'
         ]);
         Service::create([
             'slug' => 'theraphy',
-            'name' => 'Theraphy Services'
+            'name' => 'TEN Therapy'
         ]);
         Service::create([
-            'slug' => 'ten',
+            'slug' => 'tenshop',
             'name' => 'Ten Shop'
         ]);
     }

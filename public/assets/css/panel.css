@@ -374,7 +374,7 @@ img {
 .tz-pricing ul li::before {
     content: "";
     display: inline-block;
-    background-image: url("../img/check.png");
+    background-image: url("../../images/check.png");
     width: 28px;
     height: 28px;
     margin-right: 10px;

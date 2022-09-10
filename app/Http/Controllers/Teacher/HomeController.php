@@ -83,6 +83,54 @@ class HomeController extends Controller
         return redirect()->back()->withMessage('Successfully Added');
     }
 
+    public function connect_availability()
+    {
+        Validator::make(request()->all(), [
+            'date'  => ['required', 'string', 'max:10']
+        ])->validate();
+
+        foreach (request()->time as $time) {
+            Connects::create([
+                'teacher_id'    => user()->id,
+                'meet_date'     => date('Y-m-d', strtotime(request()->date)),
+                'meet_time'     => date('H:i:00', strtotime($time))
+            ]);
+        }
+
+        return redirect()->back()->withMessage('Successfully Availability Added');
+    }
+
+    public function update_conect(Connects $meet)
+    {
+        Validator::make(request()->all(), [
+            'date'  => ['required', 'string', 'max:10'],
+            'time'  => ['required', 'string', 'max:5'],
+            'link'  => ['required', 'string']
+        ])->validate();
+
+        if (request()->date != $meet->meet_date) {
+            $meet->meet_date =  date('Y-m-d', strtotime(request()->date));
+        }
+
+        if (request()->time != $meet->meet_time) {
+            $meet->meet_time =  date('H:i:s', strtotime(request()->time));
+        }
+
+        $meet->meet_link = request()->link;
+        $meet->save();
+
+        $del_connect = Connects::where('credit', 0)
+            ->where('teacher_id', user()->id)
+            ->where('meet_date', $meet->meet_date)
+            ->where('meet_time', $meet->meet_time)
+            ->first();
+        if ($del_connect) {
+            $del_connect->delete();
+        }
+
+        return redirect()->back()->withMessage('Successfully Connect Updated');
+    }
+
     public function store_report(User $child)
     {
         Validator::make(request()->all(), [

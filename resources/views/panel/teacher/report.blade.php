@@ -11,9 +11,7 @@
         <a href="#modalAddReport" data-bs-target="#modalAddReport" data-bs-toggle="modal" class="btn btn-primary fw-medium br-4 px-4">Add Report</a>
     </div>
 
-    @if (session('message'))
-        <div class="alert alert-info">{{ session('message') }}</div>
-    @endif
+
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul class="mb-0">

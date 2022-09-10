@@ -89,8 +89,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/meet-book/{meet_id}', [HomeController::class, 'meet_book'])->name('meet.book');
 
     Route::get('/buy-credit', [HomeController::class, 'buy_credit'])->name('buy.credit');
-    Route::get('/confirm-credit', [HomeController::class, 'confirm_credit'])->name('confirm.credit');
-    Route::post('/update-credit', [HomeController::class, 'update_credit'])->name('update.credit');
+    Route::post('/update-credit/{plan_id}', [HomeController::class, 'update_credit'])->name('update.credit');
 });
 
 
@@ -130,6 +129,9 @@ Route::middleware(['auth', 'plan', 'role:parent'])
 
         Route::get('/child-add', [PanelParentController::class, 'child_add'])->name('child.add');
         Route::post('/child-add', [PanelParentController::class, 'child_store'])->name('child.store');
+
+        Route::get('/my-subscription', [PanelParentController::class, 'mysubscription'])->name('subscription');
+        Route::post('/subscription-cancel/{plan_id}', [PanelParentController::class, 'mysubscription_save'])->name('subscription_cancel');
     });
 
 
@@ -154,6 +156,10 @@ Route::middleware(['auth', 'role:teacher'])
         Route::post('/add-report/{child_id}', [PanelTeacherController::class, 'store_report'])->name('add.report');
 
         Route::get('/connect', [PanelTeacherController::class, 'connect'])->name('connect');
+        Route::post('/connect-availability', [PanelTeacherController::class, 'connect_availability'])
+            ->name('meet.availability');
+        Route::post('/connect-update/{meet_id}', [PanelTeacherController::class, 'update_conect'])
+            ->name('meet.update');
 
     });
 

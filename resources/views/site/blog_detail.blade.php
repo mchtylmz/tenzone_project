@@ -33,11 +33,13 @@
 
                 <h1 class="title">{{ $blog->title }}</h1>
 
-                <img src="{!! asset($blog->image) !!}" alt="blog" class="imgblog">
+                @if($blog->image)
+                    <img src="{!! asset($blog->image) !!}" alt="blog" class="imgblog">
+                @endif
 
                 @if($author = $blog->author()->first())
                     <div class="author flex-start">
-                        <img src="{{ asset('images/profile.png') }}" alt="profile">
+                        <img src="{!! asset($author->image) !!}" alt="profile">
                         <div class="body">
                             <span class="name">{{ $author->fullname }}</span>
                             <span class="date">{{ date('M d, l', strtotime($blog->created_at)) }}</span>
@@ -48,11 +50,11 @@
 
                 <div class="line"></div>
 
-                {{ $blog->content }}
+                {!! $blog->content !!}
 
                 <div class="btn-social">
-                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('blog.detail', $blog->slug) }}" class="btn btn-outline-light"><i class="fab fa-facebook"></i> Share on Facebook</a>
-                    <a target="_blank" href="https://twitter.com/intent/tweet?url={{ route('blog.detail', $blog->slug) }}" class="btn btn-outline-light"><i class="fab fa-twitter"></i> Share on Twitter</a>
+                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('blog.detail', $blog->slug) }}" class="btn btn-outline-light"><i class="fa fa-facebook"></i> Share on Facebook</a>
+                    <a target="_blank" href="https://twitter.com/intent/tweet?url={{ route('blog.detail', $blog->slug) }}" class="btn btn-outline-light"><i class="fa fa-twitter"></i> Share on Twitter</a>
                 </div>
 
             </div>

@@ -5,11 +5,7 @@
         <h1 class="title">Booking {{ $teacher->fullname }}</h1>
         <p class="text mb-0">You can see your scheduled bookibg here.</p>
     </div>
-
-    @if (session('message'))
-        <div class="alert alert-info">{{ session('message') }}</div>
-    @endif
-
+    
     @foreach($connects as $connect)
         <div class="tm-time-item flex-between items-center flex-block-mobile">
             <div class="left flex-start">

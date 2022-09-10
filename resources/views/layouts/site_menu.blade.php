@@ -15,9 +15,9 @@
                     <div class="nav_link_has_dropdown">
                         <a class="nav-link" href="javascript:;">{{ __('Services') }}</a>
                         <ul class="dropdown_nav_link">
-                            <li><a href="{{ route('service.detail', 'educational') }}">{{ __('Educational Programs') }}</a></li>
-                            <li><a href="{{ route('service.detail', 'theraphy') }}">{{ __('Theraphy Services') }}</a></li>
-                            <li><a href="{{ route('service.detail', 'ten') }}">{{ __('Ten Shop') }}</a></li>
+                            @foreach(servicesList() as $service)
+                                <li><a href="{{ route('service.detail', $service->slug) }}">{{ $service->name }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </li>
@@ -36,8 +36,11 @@
         <div class="collapse navbar-collapse justify-content-end" id="tenzoneNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-light btn-cart" href="{{ route('cart') }}">
+                    <a class="nav-link btn btn-light btn-cart d-flex align-items-center justify-content-center" style="gap: 10px; font-size: 16px; color:#4060aa !important;" href="{{ route('cart') }}">
                         <img src="{{ asset('images/icons/shop.svg') }}" alt="icon">
+                        @if(session('carts'))
+                            {{ count(session('carts')) }}
+                        @endif
                     </a>
                 </li>
                 @auth()
@@ -66,9 +69,9 @@
             <div class="mobil_dropdown_has_nav_link">
                 <a href="#">{{ __('Services') }}</a>
                 <ul class="mobile_dropdown_nav_link">
-                    <li><a href="{{ route('service.detail', 'educational') }}">{{ __('Educational Programs') }}</a></li>
-                    <li><a href="{{ route('service.detail', 'theraphy') }}">{{ __('Theraphy Services') }}</a></li>
-                    <li><a href="{{ route('service.detail', 'ten') }}">{{ __('Ten Shop') }}</a></li>
+                    @foreach(servicesList() as $service)
+                        <li><a href="{{ route('service.detail',  $service->slug) }}">{{ $service->name }}</a></li>
+                    @endforeach
                 </ul>
             </div>
         </li>

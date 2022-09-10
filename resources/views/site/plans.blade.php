@@ -31,7 +31,7 @@
                                     <div class="tz-pricing">
                                         <h3 class="name">{{ $plan->name }}</h3>
                                         <h4 class="price" style="color:#4060AA">£{{ number_format($plan->price, 0) }} <span>/month</span></h4>
-                                        <span class="list-title">What You'll Get</span>
+                                        <span class="list-title">{{ $plan->credit }} Credit</span>
                                         <ul class="list-unstyled">
                                             <li>Activity Sheets</li>
                                             <li>Worksheets</li>
@@ -63,7 +63,7 @@
                                         <h4 class="price" style="color:#4060AA">
                                             £{{ number_format($plan->price, 0) }} <span>/yearly</span>
                                         </h4>
-                                        <span class="list-title">What You'll Get</span>
+                                        <span class="list-title">{{ $plan->credit }} Credit</span>
                                         <ul class="list-unstyled">
                                             <li>Activity Sheets</li>
                                             <li>Worksheets</li>

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->integer('minute')->default(10);
             $table->string('tags')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

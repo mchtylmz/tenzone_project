@@ -10,8 +10,8 @@ class HelpController extends Controller
     public function index()
     {
         return view('site.help', [
-            'categories' => Help::pluck('category'),
-            'faqs'       => Help::orderBy('category')->get()
+            'categories' => Help::orderBy('id', 'ASC')->groupBy('category')->pluck('category'),
+            'faqs'       => Help::orderBy('id', 'ASC')->get()
         ]);
     }
 }

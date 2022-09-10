@@ -30,7 +30,7 @@ class CartController extends Controller
     public function add($product_id)
     {
         session()->push('carts', $product_id);
-        return redirect()->route('cart');
+        return redirect()->back()->with('message', 'message.cart_add_success');
     }
 
     public function delete($product_id)

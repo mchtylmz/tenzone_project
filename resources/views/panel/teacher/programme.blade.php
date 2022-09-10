@@ -6,9 +6,7 @@
         <p class="text mb-0">You can see your scheduled programs here.</p>
     </div>
 
-    @if (session('message'))
-        <div class="alert alert-info">{{ session('message') }}</div>
-    @endif
+
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul class="mb-0">

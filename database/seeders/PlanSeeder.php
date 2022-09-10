@@ -19,6 +19,7 @@ class PlanSeeder extends Seeder
             'slug'        => 'plan-1',
             'name'        => 'Plan 1',
             'price'       => 15,
+            'credit'      => 2,
             'status'      => 'active',
             'stripe_plan' => 'price_1L2AMQF1efQtdFH9LmWzyqWl'
         ]);
@@ -26,6 +27,7 @@ class PlanSeeder extends Seeder
             'slug'        => 'plan-2',
             'name'        => 'Plan 2',
             'price'       => 20,
+            'credit'      => 4,
             'status'      => 'active',
             'stripe_plan' => 'price_1L2AMbF1efQtdFH9wo3r7eFx'
         ]);
@@ -33,6 +35,7 @@ class PlanSeeder extends Seeder
             'slug'        => 'plan-3',
             'name'        => 'Plan 3',
             'price'       => 24,
+            'credit'      => 6,
             'status'      => 'active',
             'stripe_plan' => 'price_1L7JOAF1efQtdFH9xlcB0NVw'
         ]);
@@ -41,6 +44,7 @@ class PlanSeeder extends Seeder
             'slug'        => 'plan-1-1',
             'name'        => 'Plan 1  - Yıllık',
             'price'       => 12 * 12,
+            'credit'      => 2 * 12,
             'type'        => 'yearly',
             'status'      => 'active',
             'stripe_plan' => 'price_1L2AV0F1efQtdFH98LsreDps'
@@ -49,6 +53,7 @@ class PlanSeeder extends Seeder
             'slug'        => 'plan-2-2',
             'name'        => 'Plan 2 -  Yıllık',
             'price'       => 16 * 12,
+            'credit'      => 4 * 12,
             'type'        => 'yearly',
             'status'      => 'active',
             'stripe_plan' => 'price_1L7JPJF1efQtdFH9KAWo8R2Q'
@@ -57,6 +62,7 @@ class PlanSeeder extends Seeder
             'slug'        => 'plan-3-3',
             'name'        => 'Plan 3  - Yıllık',
             'price'       => 21 * 12,
+            'credit'      => 6 * 12,
             'type'        => 'yearly',
             'status'      => 'active',
             'stripe_plan' => 'price_1L7JOnF1efQtdFH901CvEtkb'

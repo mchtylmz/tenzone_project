@@ -9,8 +9,8 @@
                 <div class="tm-login-background h-100">
                     <img src="{{ asset('images/background.jpg') }}" alt="login" class="cover">
                     <div class="content">
-                        <h2 class="title">We scratch, build and <br>play together</h2>
-                        <p>The TEN Academy is an online platform for individuals with autism and their families.</p>
+                        <h2 class="title">We scratch, build & glow together</h2>
+                        <p>The TEN Academy is an online platform for individuals with autism and their families/ carers.</p>
                     </div>
                 </div>
             </div>

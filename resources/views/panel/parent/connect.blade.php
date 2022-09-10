@@ -12,10 +12,6 @@
         </a>
     </div>
 
-    @if (session('message'))
-        <div class="alert alert-info">{{ session('message') }}</div>
-    @endif
-
     @foreach($connects as $connect)
         <div class="tm-time-item flex-between items-center flex-block-mobile">
             <div class="left flex-start">

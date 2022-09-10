@@ -7,7 +7,7 @@
     <!-- Favicon -->
     <link rel="icon" href="{!! asset(settings()->site_favicon) !!}">
 
-    <title>{{ $title }} - {{ config('app.name', 'Tenzone') }}</title>
+    <title>{{ $title }} - {{ config('app.name', 'TEN Academy') }}</title>
     <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" type="text/css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" type="text/css">
     <!-- Styles -->
@@ -41,7 +41,7 @@
             </ul>
         </div>
         <div class="alt">
-            <a href="javascript:;" class="btn btn-light btn-block btn-48">Tenzone Portal v1.0</a>
+            <a href="javascript:;" class="btn btn-light btn-block btn-48">The TEN Academy Portal v1.0</a>
         </div>
     </nav>
 @endauth
@@ -95,15 +95,23 @@
                     <i class="ri-arrow-drop-down-line arrow"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownNotification">
-                    <li><a class="dropdown-item" href="{{ route('my.profile') }}">Profile</a></li>
-                    <li><a class="dropdown-item" href="{{ route('messages.seen') }}">Messages</a></li>
-                    <li><a class="dropdown-item" href="{{ route('my.logout') }}">Log out</a></li>
+                    <li><a class="dropdown-item" href="{{ route('my.profile') }}">{{ __('Profile') }}</a></li>
+                    <li><a class="dropdown-item" href="{{ route('messages.seen') }}">{{ __('Messages') }}</a></li>
+                    @role('parent')
+                    <li><a class="dropdown-item" href="{{ route('parent.subscription') }}">{{ __('Subscription') }}</a></li>
+                    @endrole
+                    <li><a class="dropdown-item" href="{{ route('my.logout') }}">{{ __('Log out') }}</a></li>
                 </ul>
             </div>
         </div>
 
     </div>
     <div class="container-fluid pt-4 pb-4">
+
+        @if (session('message'))
+            <div class="alert alert-info">{{ session('message') }}</div>
+        @endif
+
         {{$slot}}
     </div>
 </main>

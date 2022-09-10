@@ -6,7 +6,7 @@ return [
     | Messenger display name
     |-------------------------------------
     */
-    'name' => env('CHATIFY_NAME', 'Tenzone Messenger'),
+    'name' => env('CHATIFY_NAME', 'TEN Academy Messenger'),
 
     /*
     |-------------------------------------

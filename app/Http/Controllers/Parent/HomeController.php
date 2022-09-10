@@ -7,6 +7,7 @@ use App\Models\Activities;
 use App\Models\Connects;
 use App\Models\User;
 use App\Models\Weeks;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,28 @@ class HomeController extends Controller
             'child' => $child,
             'reports' => $reports
         ]);
+    }
+
+    public function mysubscription()
+    {
+        $plans = Plan::all();
+        return view('panel.parent.subscription', ['plans' => $plans]);
+    }
+
+    public function mysubscription_save(Plan $plan)
+    {
+        $user = auth()->user();
+
+        if (!$user->subscription($plan->id)->canceled()) {
+            auth()->user()->subscription($plan->id)->cancelNow();
+        }
+
+        $user->plan_status = 'no';
+        $user->plan_id = 0;
+        $user->plan_credit = 0;
+        $user->save();
+
+        return redirect('/');
     }
 
     public function connect()

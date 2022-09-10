@@ -41,7 +41,7 @@
                                         <a href="{{ route('store.detail', $product->slug) }}" class="btn btn-primary">
                                             <img src="{{ asset('images/icons/shop2.svg') }}" alt="basket" class="primary">
                                             <img src="{{ asset('images/icons/shop-white.svg') }}" alt="basket" class="white">
-                                            {{ __('Add to Basket') }}
+                                            {{ __('Detail') }}
                                         </a>
                                     </div>
                                 </div>

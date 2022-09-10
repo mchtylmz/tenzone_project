@@ -13,6 +13,13 @@
                     @role('user')
                     <p class="fs-14 text-muted mb-0">Parent: {{ parent()->name }} {{ parent()->surname }}</p>
                     @endrole
+                    @role('parent')
+                    <div class="mb-2 text-center">
+                        <a href="{{ route('parent.subscription') }}" class="tm-profile-btn student text-center">
+                            {{ __('Subscription') }} {{ auth()->user()->plan() ? '('.auth()->user()->plan()->name.')' : '' }}
+                        </a>
+                    </div>
+                    @endrole
                 </div>
             </div>
 

@@ -75,7 +75,8 @@
             @if($user->hasrole('parent'))
                 <div class="mid">
                     <div class="text">
-                        <i class="ri-user-4-line"></i> {{ $user->childs()->count() }} Childs
+                        <i class="ri-user-4-line"></i>
+                        {{ $user->childs()->count() }} {{ $user->childs()->count() > 1 ? 'Children':'Child'}}
                     </div>
                 </div>
             @endif

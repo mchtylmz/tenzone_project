@@ -4,6 +4,10 @@
 
     <section class="tz-page-normal">
         <div class="container">
+            @if (session('message'))
+                <div class="alert alert-success">{{ __(session('message')) }}</div>
+            @endif
+
             <div class="tz-shop-detail">
                 <div class="row">
                     <div class="col-lg-5">
@@ -51,7 +55,7 @@
                                     <a href="{{ route('store.detail', $product->slug) }}" class="btn btn-primary">
                                         <img src="{{ asset('images/icons/shop2.svg') }}" alt="basket" class="primary">
                                         <img src="{{ asset('images/icons/shop-white.svg') }}" alt="basket" class="white">
-                                        {{ __('Add to Basket') }}
+                                        {{ __('Detail') }}
                                     </a>
                                 </div>
                             </div>

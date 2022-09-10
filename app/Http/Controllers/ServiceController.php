@@ -12,7 +12,7 @@ class ServiceController extends Controller
     public function detail(Service $service)
     {
         // 'site.service.' . $service->slug
-        return view('site.service.educational', [
+        return view('site.service.' . $service->slug, [
             'service' => $service,
             'plans'   => Plan::all()
         ]);
