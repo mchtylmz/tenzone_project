@@ -38,13 +38,14 @@
                 @endif
 
                 @if($author = $blog->author()->first())
-                    <div class="author flex-start">
+                    <!--<div class="author flex-start">
                         <img src="{!! asset($author->image) !!}" alt="profile">
                         <div class="body">
                             <span class="name">{{ $author->fullname }}</span>
                             <span class="date">{{ date('M d, l', strtotime($blog->created_at)) }}</span>
                         </div>
                     </div>
+                    -->
                 @endif
 
 

@@ -16,6 +16,16 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $parent = User::create([
+            'name' => 'therapy',
+            'surname' => 'therapy',
+            'dob' => date('Y-m-d', strtotime('-30 years')),
+            'gender' => 'male',
+            'email' => 'therapy@therapy.com',
+            'password' => Hash::make('12345678')
+        ]);
+        $parent->syncRoles('therapy');
+
         $user = User::create([
             'name' => 'admin',
             'surname' => 'suradmin',
@@ -35,7 +45,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678')
         ]);
         $teacher->syncRoles('teacher');
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $day = date('Y-m-d', strtotime($i . ' days'));
             $teacher->meets()->create([
                 'meet_date' => $day,

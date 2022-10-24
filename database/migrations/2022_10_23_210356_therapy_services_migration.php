@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('therapy_services', function (Blueprint $table) {
             $table->id();
-            $table->string('lang', 5)->default('en');
-            $table->string('slug')->unique();
             $table->string('name');
-            $table->text('description');
-            $table->text('long_description');
+            $table->string('description');
+            $table->string('category');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('therapy_services');
     }
 };

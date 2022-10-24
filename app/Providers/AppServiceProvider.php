@@ -10,6 +10,8 @@ use App\Models\Service;
 use App\Models\Store;
 use App\Models\User;
 use App\Models\Weeks;
+use App\Models\Help;
+use App\Models\TherapyService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -81,6 +83,14 @@ class AppServiceProvider extends ServiceProvider
         // meet_id
         Route::bind('meet_id', function ($id) {
             return Connects::findOrFail($id);
+        });
+        // help_id
+        Route::bind('help_id', function ($id) {
+            return Help::findOrFail($id);
+        });
+        // therapy_service_id
+        Route::bind('therapy_service_id', function ($id) {
+            return TherapyService::findOrFail($id);
         });
     }
 }

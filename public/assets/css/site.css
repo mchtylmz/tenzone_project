@@ -11370,3 +11370,63 @@ textarea.form-control-lg {
     }
 }
 
+
+
+.academy {
+    margin-right: 20px !important;
+    padding: 40px 30px;
+    width: 100%;
+}
+.academy-2 {
+    width: 100%;
+    padding: 40px 30px;
+}
+.bg-academy-1 {
+    background: #dbe8fa;
+    transition: all 0.5s ease-out;
+}
+.bg-academy-2 {
+    background: #feecd7;
+    transition: all 0.5s ease-out;
+}
+.bg-academy-3 {
+    background: #dfefef;
+    transition: all 0.5s ease-out;
+}
+.bg-academy-4 {
+    background: #fdeec9;
+    transition: all 0.5s ease-out;
+}
+.academy-link {
+    color: #000;
+    transition: transform 0.5s ease-out;
+    display: inline-block;
+}
+.btn-academy {
+    position: absolute;
+    right: 10%;
+    top: 110%;
+    transition: all 0.8s ease-out;
+    display: inline-block;
+    opacity: 0;
+}
+.academy-link:hover .btn-academy {
+    opacity: 1;
+    transform: translate(0, -100px);
+}
+.academy-link:hover .bg-academy-1 {
+    color: #fff !important;
+    background: #4060aa;
+}
+.academy-link:hover .bg-academy-2 {
+    color: #fff !important;
+    background: #ec673b;
+}
+.academy-link:hover .bg-academy-3 {
+    color: #fff !important;
+    background: #31645e;
+}
+.academy-link:hover .bg-academy-4 {
+    color: #fff !important;
+    background: #deb343;
+}

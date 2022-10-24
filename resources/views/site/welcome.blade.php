@@ -70,7 +70,14 @@
                         </div>
                         <div class="pt-1 pb-5 text">
                             <p>{{ __('TEN therapy offers an extensive range of therapies with knowledgeable experts. To see our full list of therapies and therapists, click here. ') }}</p>
-                            <a href="{{route('book.free')}}" class="btn btn-primary color-but-2">{{ __('Book Now') }}</a>
+                           
+                            @foreach(servicesList() as $service)
+                                @if($service->slug == 'theraphy')
+                            
+                             <a href="{{ route('service.detail',  $service->slug) }}" class="btn btn-primary color-but-2">{{ __('Book Now') }}</a>
+                             @endif
+                             
+                    @endforeach
                         </div>
                     </div>
                     <!-- end card -->

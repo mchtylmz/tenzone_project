@@ -24,8 +24,8 @@ class ServiceSeeder extends Seeder
             'name' => 'TEN Therapy'
         ]);
         Service::create([
-            'slug' => 'tenshop',
-            'name' => 'Ten Shop'
+            'slug' => 'tenzone',
+            'name' => 'TENzone'
         ]);
     }
 }

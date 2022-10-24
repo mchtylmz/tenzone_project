@@ -8,8 +8,9 @@
                 <div class="col-lg-5">
                     <div class="content">
                         <h1 class="title">{{ $service->name }}..</h1>
-                        <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla id quam
-                            ut lacinia. Nulla ullamcorper luctus ex, in sodales enim sollicitudin ac</p>
+                        <p class="text">
+                        {{ $service->description }}    
+                        </p>
                         <a href="{{route('book.free')}}" class="btn btn-primary">Book a session for free</a>
                     </div>
                 </div>
@@ -34,12 +35,9 @@
         <div class="tz-overview">
             <img src="{{ asset('images/line.png') }}" alt="line" class="line">
             <h2 class="title">Overview</h2>
-            <h3 class="subtitle">Neque convallis a cras semper auctor. Libero id faucibus nisl tincidunt egetnvallis a
-                cras semper auctonvallis a cras semper aucto.</h3>
-            <p class="text mb-0">Neque convallis a cras semper auctor. Liberoe convallis a cras semper atincidunt
-                egeeque convallis a cras semper auctor. Libero id faucibus nisl tincidunt egetnvallis a cras semper
-                auctonvallis a cras semper aucto. Neque convallis a cras semper auctor. Liberoe convallis a cras semper
-                atincidunt egetnval</p>
+            <p class="text mb-0">
+            {!! $service->long_description !!}
+            </p>
         </div>
     </div>
 
@@ -56,9 +54,7 @@
                         </div>
 
                         <div class="content">
-                            <h3 class="title">Content</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit.</p>
+                            <h3 class="title">Complete and submit the relevant questionnaires.</ph3>
                         </div>
                     </div>
                 </div>
@@ -72,9 +68,8 @@
                         </div>
 
                         <div class="content">
-                            <h3 class="title">Content</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit.</p>
+                            <h3 class="title">Our team of experts will create your programme.
+</h3>
                         </div>
                     </div>
                 </div>
@@ -88,15 +83,14 @@
                         </div>
 
                         <div class="content">
-                            <h3 class="title">Content</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit.</p>
+                            <h3 class="title">Each week your programme will change to support achieving targets and needs. 
+</h3>
                         </div>
                     </div>
                 </div>
 
 
-                <div class="item">
+   <!--             <div class="item">
                     <div class="tz-how-box four">
                         <div class="number">
                             <img src="{{ asset('images/icons/4.svg') }}" alt="1">
@@ -110,22 +104,9 @@
                         </div>
                     </div>
                 </div>
+-->
 
 
-                <div class="item">
-                    <div class="tz-how-box five">
-                        <div class="number">
-                            <img src="{{ asset('images/icons/5.svg') }}" alt="1">
-                            <span style="color:#5D5FEF">5</span>
-                        </div>
-
-                        <div class="content">
-                            <h3 class="title">Content</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -134,22 +115,94 @@
 
     <section class="tz-what mobile-hide">
         <div class="container">
-            <h2 class="head-title">What you get?</h2>
+            <h2 class="head-title">What does the tailored programme include?
+</h2>
             <div class="row">
-                @for ($i = 0; $i <4; $i++)
+                
+                <div class="col-lg-6">
+                        <div class="tz-blog-box">
+                            <img src="{{ asset('images/blog.png') }}" alt="blog">
+                            <div class="content">
+                                <h3 class="title">Worksheets</h3>
+                                <p>Our worksheets are created by our educational support team, and each worksheet is made to suit your needs. Our worksheets follow the National Curriculum and are developed to support your learning. 
+</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
                     <div class="col-lg-6">
                         <div class="tz-blog-box">
                             <img src="{{ asset('images/blog.png') }}" alt="blog">
                             <div class="content">
-                                <span class="tags">Education</span>
-                                <h3 class="title">Weeklyly Activity plans</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit.</p>
+                                <h3 class="title">Activity sheets
+</h3>
+                                <p>Our activity sheets range from colouring to life skills, all of which serve a purpose. The TEN Academy believes we should be informing and teaching individuals the fundamentals of living, and our life skills activity sheets do this in a fun and active way. Our activity sheets are hand-selected and made to benefit you. We will consult parents/carers before constructing these worksheets, as we believe you should have a say in what your child/children need. You can choose topics from cleaning, conversation skills, or even personal development. 
+</p>
                             </div>
                         </div>
                     </div>
-                @endfor
+                    
+                    
+                    
+                <div class="col-lg-6">
+                        <div class="tz-blog-box">
+                            <img src="{{ asset('images/blog.png') }}" alt="blog">
+                            <div class="content">
+                                <h3 class="title">Video calls
+</h3>
+                                <p>Depending on your package, you will receive video call tokens over the month. The video calls can be used for supporting your child/children's work or for meetings, both of which are with your assigned Educational Support assistant.
 
+</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                <div class="col-lg-6">
+                        <div class="tz-blog-box">
+                            <img src="{{ asset('images/blog.png') }}" alt="blog">
+                            <div class="content">
+                                <h3 class="title">Weekly overview
+</h3>
+                                <p>From weekly submitted work and updates from parents/carers, we create a weekly report that is formed by analysing work and feedback. The report will include our analysis of the week and the next steps for the following week.
+
+</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                <div class="col-lg-6">
+                        <div class="tz-blog-box">
+                            <img src="{{ asset('images/blog.png') }}" alt="blog">
+                            <div class="content">
+                                <h3 class="title">Monthly Overview
+</h3>
+                                <p>Our monthly overviews celebrate the hard work of the individuals learning and personal development during the month. The report compiles evidence into charts for easy visual access for behaviour during work and the percentage of work completed and uncompleted. These charts will help create academic 'what went well and their 'next step targets'. During your end-of-the-month video call, we will discuss the overview document and any concerns you may have. 
+
+</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                <div class="col-lg-6">
+                        <div class="tz-blog-box">
+                            <img src="{{ asset('images/blog.png') }}" alt="blog">
+                            <div class="content">
+                                <h3 class="title">Quarterly overview</h3>
+                                <p>Our quarterly overviews acknowledge the progress made over three months. These are produced by examining previous monthly and weekly overviews and consulting our team of experts. This includes an in-depth analysis of work produced, behaviour during work, personal progress, 'analysis of the month' and 'next step targets', and targets to aspire to for the next quarter. This will also include recommendations with evidence. Again, the quarterly overview will be discussed during one of your video calls. 
+
+</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
             </div>
         </div>
     </section>
@@ -287,7 +340,7 @@
         </div>
     </section>
 
-
+<!--
     <section class="tz-testimonials">
         <div class="container"><h2 class="head-title text-center">Testimonials</h2></div>
         <div class="container-fluid">
@@ -310,5 +363,5 @@
                 @endfor
             </div>
         </div>
-    </section>
+    </section> -->
 </x-site-layout>

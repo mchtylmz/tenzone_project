@@ -15,6 +15,7 @@ class HelpSeeder extends Seeder
      */
     public function run()
     {
+        /*
         $faq = [
             'The TEN Academy' => [
                 'What is The TEN Academy ?',
@@ -74,5 +75,6 @@ class HelpSeeder extends Seeder
                 ]);
             }
         }
+        */
     }
 }

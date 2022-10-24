@@ -105,6 +105,10 @@ Route::middleware(['auth', 'plan', 'role:user'])
 
         Route::get('/book/teachers', [PanelUserController::class, 'book_teachers'])->name('book.teachers');
         Route::get('/book/teacher/{user_id}', [PanelUserController::class, 'book_teacher'])->name('book.teacher');
+
+        Route::get('/book/therapy/services', [PanelUserController::class, 'book_therapy_services'])->name('book.therapy_services');
+        Route::get('/book/therapist/{therapy_service_id}', [PanelUserController::class, 'book_therapist'])->name('book.therapist');
+        Route::get('/book/therapy/{user_id}', [PanelUserController::class, 'book_therapy'])->name('book.therapy');
     });
 
 
@@ -172,6 +176,16 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/', [PanelAdminController::class, 'index'])->name('index');
         Route::get('/orders', [PanelAdminOrderController::class, 'index'])->name('orders');
         Route::get('/connects', [PanelAdminController::class, 'connects'])->name('connects');
+
+        Route::get('/helps', [PanelAdminController::class, 'helps'])->name('helps');
+        Route::post('/help/add', [PanelAdminController::class, 'help_add'])->name('help.add');
+        Route::post('/help/save/{help_id}', [PanelAdminController::class, 'help_save'])->name('help.save');
+        Route::post('/help/delete/{help_id}', [PanelAdminController::class, 'help_delete'])->name('help.delete');
+
+        Route::get('/therapy-services', [PanelAdminController::class, 'therapy_services'])->name('therapy');
+        Route::post('/therapy-service/add', [PanelAdminController::class, 'therapy_add'])->name('therapy.add');
+        Route::post('/therapy-service/save', [PanelAdminController::class, 'therapy_save'])->name('therapy.save');
+        Route::post('/therapy-service/delete', [PanelAdminController::class, 'therapy_delete'])->name('therapy.delete');
 
         Route::prefix('user')
             ->name('user.')

@@ -22,21 +22,30 @@
         Users
     </a>
 </li>
-
 <li>
     <a href="{{ route('admin.connects') }}" class="{{ request()->route()->getName() == 'admin.connects' ? 'active':'' }}">
         <div class="icon"><i class="ri-links-line"></i></div>
         Connects
     </a>
 </li>
-
 <li>
     <a href="{{ route('admin.orders') }}" class="{{ request()->route()->getName() == 'admin.orders' ? 'active':'' }}">
         <div class="icon"><i class="ri-store-line"></i></div>
         Orders
     </a>
 </li>
-
+<li>
+    <a href="{{ route('admin.therapy') }}" class="{{ request()->route()->getName() == 'admin.therapy' ? 'active':'' }}">
+        <div class="icon"><i class="ri-psychotherapy-line"></i></div>
+        Therapy Services
+    </a>
+</li>
+<li>
+    <a href="{{ route('admin.helps') }}" class="{{ request()->route()->getName() == 'admin.helps' ? 'active':'' }}">
+        <div class="icon"><i class="ri-question-line"></i></div>
+        Helps
+    </a>
+</li>
 <li>
     <a href="/admin/user-activity">
         <div class="icon"><i class="ri-line-height"></i></div>

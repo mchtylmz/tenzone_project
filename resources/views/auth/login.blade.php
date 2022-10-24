@@ -20,7 +20,7 @@
                     <div class="tm-lb-form">
                         <img src="{{ asset('images/logo-icon.svg') }}" alt="icon" class="mb-3">
                         <h1 class="title mb-1">Login</h1>
-                        <p class="text text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                        <p class="text text-muted"></p>
                         <form id="login" method="POST" action="{{ route('login') }}" class="loading">
                             @csrf
 

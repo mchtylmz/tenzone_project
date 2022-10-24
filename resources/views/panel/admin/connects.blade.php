@@ -6,6 +6,20 @@
         <p class="text mb-0">You can see your scheduled programs here.</p>
     </div>
 
+    <dic class="row align-items-end justify-content-end mb-3">
+        <div class="col-lg-6 text-right">
+            <form class="row justify-content-between g-3" method="get">
+                <div class="col">
+                    <label for="search" class="visually-hidden">Meet Date/Time</label>
+                    <input type="text" name="q" class="form-control bg-white" id="search" autocomplete="off" placeholder="Meet date or Meet Time..."  value="{{ request('q') }}">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mt-1">Search</button>
+                </div>
+            </form>
+        </div>
+    </dic>
+
     @foreach($connects as $connect)
         <div class="tm-time-item flex-between items-center flex-block-mobile">
             <div class="left flex-start">
@@ -26,11 +40,11 @@
                     </div>
                 </div>
             @endif
-            @if($teacher = $connect->teacher()->first())
+            @if($user = $connect->teacher()->first())
                 <div class="left2">
                     <div class="text">
-                        <img src="{!! asset($teacher->image) !!}" alt="profile" class="img-profile">
-                        {{ $teacher->fullname }}
+                        <img src="{!! asset($user->image) !!}" alt="profile" class="img-profile">
+                        {{ $user->fullname }} ({{ $user->role_name }})
                     </div>
                 </div>
             @endif

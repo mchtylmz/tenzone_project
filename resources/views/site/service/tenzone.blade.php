@@ -8,8 +8,7 @@
                 <div class="col-lg-5">
                     <div class="content">
                         <h1 class="title">{{ $service->name }}..</h1>
-                        <p class="text">TEN Therapy offers a range of therapies to suit everyone's needs.
-
+                        <p class="text">The TENzone app has been created to assist you with the Zones of Regulation. 
 </p>
                         <a href="{{route('book.free')}}" class="btn btn-primary">Book a session for free</a>
                     </div>
@@ -31,16 +30,70 @@
     </div>
 
 
-    <div class="container">
-        <div class="tz-overview">
-            <img src="{{ asset('images/line.png') }}" alt="line" class="line">
-            <h2 class="title">Overview</h2>
-            <p class="text mb-0">TEN Therapy offers a range of therapies to suit everyone's needs. We are currently offering the Early Start Denver Model (ESDM) but will continue to add to our catalogue of therapies. 
-</p>
-        </div>
-    </div>
 
-<!--
+    <section style="margin-top:140px;margin-bottom:90px">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <h2 class="head-title pb-2 inline-block">{{ __('What are the Zones of Regulation?
+') }}</h2>
+
+                <div class="col-lg-6 mt-4 relative academy-link" >
+                    <div class="academy bg-academy-1">
+                        <h5 class="title font-weight-light mt-2">{{ __('Blue Zone') }}</h5>
+                        <span>{{ __('Feelings: Sick, sad, tired, bored, and moving slowly.
+What might help you? Talk to someone, walk, listen to music, or draw.
+') }}</span>
+                        <div class=" btn-academy">
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mt-4 relative academy-link">
+                    <div class="academy-2  bg-academy-4 ">
+                        <h5 class="title font-weight-light mt-2">{{ __('Yellow Zone') }}</h5>
+                        <span>{{ __('Feelings: Frustrated, worried, nervous, anxious, silly, and excited.
+What might help you? Talk to someone, do breathing exercises, draw, or play with a squeezy toy.
+
+') }}</span>
+                        <div class=" btn-academy">
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 relative academy-link mt-4">
+                    <div class="academy bg-academy-2">
+                        <h5 class="title font-weight-light mt-2">{{ __('Red Zone') }}</h5>
+                        <span>{{ __('Feelings: Mad/ angry, mean, shouting, aggressive, scared, and not ready to learn. 
+What might help you? Find a safe quiet place, do breathing exercises, play with a friend, or have a snack.
+') }}</span>
+                    </div>
+
+                    <div class=" btn-academy">
+                        
+                    </div>
+                </div>
+
+                <div class="col-lg-6 relative academy-link mt-4">
+                    <div class="academy-2 bg-academy-3">
+                        <h5 class="title font-weight-light mt-2">{{ __('Green Zone') }}</h5>
+                        <span>{!! __('Feelings: Happy, calm, focused, and ready to learn.
+<br>
+There are numerous activities to do when in these zones, and some may not apply to everyone. However, our app offers a wide range of games and activities for each zone that will support you in returning to the green zone. Our app also allows you to set timers to encourage the user to return to their work or activity that they were doing before. 
+') !!}</span>
+                    </div>
+                    <div class=" btn-academy">
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+
+
     <section class="tz-how">
         <div class="container"><h2 class="head-title">How it works</h2></div>
         <div class="container-fluid">
@@ -151,21 +204,26 @@
         </div>
     </section>
 
--->
-    <section class="tz-how">
-        <div class="container">
-            <h2 class="head-title text-center">What is ESDM?
-</h2>
-            
-           <h5>The Early Start Denver Model (ESDM) is a behavioural therapy for children with autism from the ages of 1 to 5. It is based on the methods of applied behaviour analysis (ABA). The intervention therapy is play-based to help support building positive relationships. Through play, children are encouraged to interact and communicate, which helps boost language, cognitive and social skills.
-<br><br>
-Meet our ESDM therapist, Georgianna Moraitopoulou.
-<br><br>
- <center>
-     “ I am a fully certified therapist on the Early Start Denver Model (ESDM), a comprehensive and naturalistic play-based early intervention therapy for children ages 1-5 years old. With an undergraduate degree in Psychology (Aristotle University of Thessaloniki), I then completed my postgraduate studies in Developmental Psychology and Psychopathology (MSc) at King’s College London. In 2019 I developed an interest in autism and I have been working with families and their children ever since. I provide an assessment of the child’s strengths and needs based on the ESDM Curriculum Checklist based on which I construct the child’s program (teaching objectives) taking into account the parents’ wishes. Quarterly assessments of the child’s progress, as well as weekly guidance for parents on the therapy, are part of the intervention process. My motto is to “find the smile” in children since the motivation and outcomes in learning are stronger when the process is fun. I will be soon acquiring a certification in Paediatric Autism Communication Therapy (PACT) for training parents on how to interact and teach communication skills to their children with autism
- </center>
-</h5>
 
+    <section class="tz-what mobile-show">
+        <div class="container">
+            <h2 class="head-title">What you get?</h2>
+            <div class="owl-carousel owl-theme" id="tz-slider-what-mobile">
+
+                @for ($i = 0; $i <4; $i++)
+                    <div class="item">
+                        <div class="tz-blog-box">
+                            <img src="{{ asset('images/blog.png') }}" alt="blog">
+                            <div class="content">
+                                <span class="tags">Education</span>
+                                <h3 class="title">Weeklyly Activity plans</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
+                                    consectetur adipiscing elit.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endfor
+            </div>
         </div>
     </section>
 
@@ -175,16 +233,10 @@ Meet our ESDM therapist, Georgianna Moraitopoulou.
             <div class="row">
                 <div class="col-lg-8">
                     <div class="content">
-                        <h5 class="title" style="font-size: 24px" >The TEN Academy provides an immense variety of services from tailored programmes, therapy sessions, an online shop, and much more.
-
-</h5>
-                        <p>You can read our service summaries by hovering over the service or clicking the service for further details. 
-                      
-<br>
-                        Contact us for more information : <a href="mailto:info@thetenacademy.com"><b style="color: white">info@thetenacademy.com</b></a>
-
-</p><!--
-                        <a href="{{route('book.free')}}" class="btn btn-light">Book a session for free <i class="fa fa-arrow-right"></i></a>-->
+                        <h2 class="title">You are not sure about our services</h2>
+                        <p>The generated Lorem Ipsum is therefore always free from repetition, injected humour, or
+                            non-characteristic words etc.</p>
+                        <a href="{{route('book.free')}}" class="btn btn-light">Book a session for free <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
 
@@ -200,7 +252,7 @@ Meet our ESDM therapist, Georgianna Moraitopoulou.
             </div>
         </div>
     </div>
-<!--
+
     <section class="tz-membership">
         <div class="container">
             <div class="text-center">
@@ -284,8 +336,6 @@ Meet our ESDM therapist, Georgianna Moraitopoulou.
             </div>
         </div>
     </section>
--->
-
 
 
 </x-site-layout>

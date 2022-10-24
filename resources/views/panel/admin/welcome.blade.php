@@ -17,6 +17,9 @@
                 <a class="nav-link {{ $filter_role == 'teacher' ? 'active' : '' }}" href="?role=teacher">Teachers</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ $filter_role == 'therapy' ? 'active' : '' }}" href="?role=therapy">Therapist</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ $filter_role == 'admin' ? 'active' : '' }}" href="?role=admin">Admins</a>
             </li>
         </ul>

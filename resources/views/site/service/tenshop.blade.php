@@ -287,28 +287,4 @@
         </div>
     </section>
 
-
-    <section class="tz-testimonials">
-        <div class="container"><h2 class="head-title text-center">Testimonials</h2></div>
-        <div class="container-fluid">
-            <div class="owl-carousel owl-theme" id="tz-slider-comments">
-                @for($i = 0; $i <= 4; $i++)
-                    <div class="item">
-                        <div class="tz-comment">
-                            <img src="{{ asset('images/icons/comment.png') }}" alt="comment" class="icon">
-                            <p class="text">Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum
-                                dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.</p>
-                            <div class="profile flex-start">
-                                <img src="{{ asset('images/profile.png') }}" alt="profile">
-                                <div class="content">
-                                    <span class="name">Cameron Williamson</span>
-                                    <span class="mini">President of Sales</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endfor
-            </div>
-        </div>
-    </section>
 </x-site-layout>

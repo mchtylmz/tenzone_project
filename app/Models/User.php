@@ -136,6 +136,11 @@ class User extends Authenticatable
         return $this->hasOne( Connects::class, 'user_id', 'id' );
     }
 
+    public function getRoleNameAttribute()
+    {
+        return $this->getRoleNames()->implode(',');
+    }
+
     public function plan()
     {
         $subscribe = $this->subscriptions()->first();

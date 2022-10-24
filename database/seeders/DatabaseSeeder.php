@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             StoreSeeder::class,
             HelpSeeder::class,
             ServiceSeeder::class,
+            TherapyServicesSeeder::class,
         ]);
     }
 }

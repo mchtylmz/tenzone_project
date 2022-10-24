@@ -6,12 +6,29 @@
         <p class="text mb-0">You can see your scheduled programs here.</p>
     </div>
 
-    <div class="mb-4">
-        <a href="{{ route('user.book.teachers') }}" class="btn btn-primary with-icon px-4 br-4">
-            <i class="ri-calendar-2-fill"></i> Book new appointment
-        </a>
-    </div>
+    <div class="flex-between items-center flex-block-mobile mb-4">
+        <ul class="tm-nav-head nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link {{ $filter_role == 'teacher' ? 'active' : '' }}" href="?role=teacher">Teacher</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ $filter_role == 'therapy' ? 'active' : '' }}" href="?role=therapy">Therapist</a>
+            </li>
+        </ul>
+        <div class="mb-4">
+            @if($filter_role == 'teacher')
+                <a href="{{ route('user.book.teachers') }}" class="btn btn-primary with-icon px-4 br-4">
+                    <i class="ri-calendar-2-fill"></i> Book new appointment
+                </a>
+            @endif
+            @if($filter_role == 'therapy')
+                <a href="{{ route('user.book.therapy_services') }}" class="btn btn-primary with-icon px-4 br-4">
+                    <i class="ri-calendar-2-fill"></i> Book Therapist
+                </a>
+            @endif
 
+        </div>
+    </div>
 
 
     @foreach($connects as $connect)
