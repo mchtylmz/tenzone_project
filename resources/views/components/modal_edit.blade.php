@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <h4 class="mb-3">Your Connect</h4>
-                <form action="{{ route('teacher.meet.update', $id) }}" method="post" class="loading">
+                <form action="{{ route(($prefix ?? 'teacher').'.meet.update', $id) }}" method="post" class="loading">
                     @csrf
 
                     <div class="mb-3">
@@ -21,17 +21,17 @@
                                 <div class="accordion-body">
                                     <div class="btn-group tm-btn-group" role="group">
 
-                                        <input type="radio" class="btn-check" name="time" id="time1" autocomplete="off" value="11:00" {{$time == '11:00' ? 'checked':''}}>
-                                        <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time1">11:00</label>
+                                        <input type="radio" class="btn-check" name="time" id="time{{$id}}1" autocomplete="off" value="11:00" {{$time == '11:00' ? 'checked':''}}>
+                                        <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time{{$id}}1">11:00</label>
 
-                                        <input type="radio" class="btn-check" name="time" id="time2" autocomplete="off" value="13:00" {{$time == '13:00' ? 'checked':''}}>
-                                        <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time2">13:00</label>
+                                        <input type="radio" class="btn-check" name="time" id="time{{$id}}2" autocomplete="off" value="13:00" {{$time == '13:00' ? 'checked':''}}>
+                                        <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time{{$id}}2">13:00</label>
 
-                                        <input type="radio" class="btn-check" name="time" id="time3" autocomplete="off" value="15:00" {{$time == '15:00' ? 'checked':''}}>
-                                        <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time3">15:00</label>
+                                        <input type="radio" class="btn-check" name="time" id="time{{$id}}3" autocomplete="off" value="15:00" {{$time == '15:00' ? 'checked':''}}>
+                                        <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time{{$id}}3">15:00</label>
 
-                                        <input type="radio" class="btn-check" name="time" id="time4" autocomplete="off" value="18:00" {{$time == '18:00' ? 'checked':''}}>
-                                        <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time4">18:00</label>
+                                        <input type="radio" class="btn-check" name="time" id="time{{$id}}4" autocomplete="off" value="18:00" {{$time == '18:00' ? 'checked':''}}>
+                                        <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time{{$id}}4">18:00</label>
 
                                     </div>
                                 </div>

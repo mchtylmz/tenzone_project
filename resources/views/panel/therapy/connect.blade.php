@@ -20,6 +20,14 @@
         </div>
     @endif
 
+    @if(count($connects) == 0)
+        <div class="tm-card tm-card-blank text-center">
+            <div class="icon"><i class="ri-user-2-fill"></i></div>
+            <h4>You do not have connects</h4>
+            <p class="text-5e fs-14">Lorem Ipsum is simply printing and typesetting industry. </p>
+        </div>
+    @endif
+
     @foreach($connects as $connect)
         <div class="tm-time-item flex-between items-center flex-block-mobile">
             <div class="left flex-start">
@@ -54,10 +62,12 @@
                     @endif
                     <x-modal_cancel id="{{$connect->id}}"
                                     date="{{ date('d M Y, l', strtotime($connect->meet_date)) }}"
-                                    time="{{ date('H:i', strtotime($connect->meet_time)) }}" />
+                                    time="{{ date('H:i', strtotime($connect->meet_time)) }}"
+                                    prefix="therapy"/>
                     <x-modal_edit id="{{$connect->id}}"
                                   date="{{ date('Y-m-d', strtotime($connect->meet_date)) }}"
-                                  time="{{ date('H:i', strtotime($connect->meet_time)) }}" />
+                                  time="{{ date('H:i', strtotime($connect->meet_time)) }}"
+                                  prefix="therapy"/>
                 @else
                     <a class="btn btn-light fw-medium ms-3 br-4 btn-join" disabled>
                         {{ __('Past Connect') }}
@@ -76,7 +86,7 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <h4 class="mb-3">Your availability</h4>
-                    <form action="{{ route('teacher.meet.availability') }}" method="post" class="loading">
+                    <form action="{{ route('therapy.meet.availability') }}" method="post" class="loading">
                         @csrf
 
                         <div class="mb-3">
@@ -94,17 +104,17 @@
                                     <div class="accordion-body">
                                         <div class="btn-group tm-btn-group" role="group">
 
-                                            <input type="checkbox" class="btn-check" name="time[]" id="time01" autocomplete="off" value="11:00">
-                                            <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time01">11:00</label>
+                                            <input type="checkbox" class="btn-check" name="time[]" id="time1" autocomplete="off" value="11:00">
+                                            <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time1">11:00</label>
 
-                                            <input type="checkbox" class="btn-check" name="time[]" id="time02" autocomplete="off" value="13:00">
-                                            <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time02">13:00</label>
+                                            <input type="checkbox" class="btn-check" name="time[]" id="time2" autocomplete="off" value="13:00">
+                                            <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time2">13:00</label>
 
-                                            <input type="checkbox" class="btn-check" name="time[]" id="time03" autocomplete="off" value="15:00">
-                                            <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time03">15:00</label>
+                                            <input type="checkbox" class="btn-check" name="time[]" id="time3" autocomplete="off" value="15:00">
+                                            <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time3">15:00</label>
 
-                                            <input type="checkbox" class="btn-check" name="time[]" id="time04" autocomplete="off" value="18:00">
-                                            <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time04">18:00</label>
+                                            <input type="checkbox" class="btn-check" name="time[]" id="time4" autocomplete="off" value="18:00">
+                                            <label class="tm-checkbtn btn btn-light btn-48 fw-light mb-1" for="time4">18:00</label>
 
                                         </div>
                                     </div>

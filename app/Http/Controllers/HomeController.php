@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Plan;
 use App\Models\Store;
 use App\Models\User;
+use App\Models\TherapistService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,7 +36,7 @@ class HomeController extends Controller
             return redirect()->route('plan.subscribe');
         }
 
-        if (auth()->user()->hasRole(['parent', 'user', 'admin', 'teacher', 'theraphy'])) {
+        if (auth()->user()->hasRole(['parent', 'user', 'admin', 'teacher', 'therapy'])) {
             $roleName = auth()->user()->getRoleNames()[0];
             $to_route = sprintf('%s.index', $roleName);
             if ($route) {
@@ -45,6 +46,18 @@ class HomeController extends Controller
         }
 
         return redirect()->route('index');
+    }
+    
+    
+    public function terms()
+    {
+        return view('terms');
+    }
+    
+    
+    public function policy()
+    {
+        return view('policy');
     }
 
     public function myprofile()
@@ -76,28 +89,27 @@ class HomeController extends Controller
         ]);
     }
 
-    public function update_credit(Plan $plan)
+    public function payment_therapy(Connects $meet, TherapistService $service, User $user)
     {
-        // kart bilgilerini alıyoruz.
+        // card information
         $holder_name = request()->cardname;
         $card_number = request()->cardnumber;
         $month = request()->expmonth;
         $year = request()->expyear;
         $cvc = request()->cvc;
 
-        $total = $plan->price;
+        $total = $service->price;
 
-        // örnek olarak karttan 1$ çekeceğiz. stripe dokümanında belirtildiği üzere karttan çekilecek değeri 100 ile çarpmamız gerekiyor.
         $currency = 'GBP';
         $price = $total * 100;
 
-        // stripe secret_key bilgisini config'den alıyoruz.
+        // We get the stripe secret_key information from the config.
         $stripe = new \Stripe\StripeClient(
             config('stripe.secret_key')
         );
 
         try {
-            // kart bilgilerini kullanarak stripe tarafında bir token elde ediyoruz.
+            // We obtain a token on the stripe side using the card information.
             $stripeToken = $stripe->tokens->create([
                 'card' => [
                     'number' => $card_number,
@@ -107,16 +119,161 @@ class HomeController extends Controller
                 ]
             ]);
 
-            // müşteri adını ve kart bilgisini stripe tarafında kaydediyoruz.
+            // We save the customer name and card information on the stripe side..
             $customer = $stripe->customers->create([
                 'name' => $holder_name,
                 'source' => $stripeToken['id']
             ]);
 
-            // stripe tarafında bir setupIntent oluşturuyoruz.
-            // setupIntent işlemi sonucunda stripe, girilen kartın 3ds gerektirip gerektirmediğiyle ilgili bir doğrulama yapıyor.
-            // stripe'ın ödeme sonucunu iletmesi için 'return_url' parametresini belirtiyoruz.
-            // 3ds ekranı sonrası para çekme işleminde kullanmak için 'metadata' kısmında fiyat ve para birimi değerlerini gönderiyoruz.
+            // We create a setupIntent on the stripe side.
+            // As a result of the setupIntent operation, the stripe is verifying whether the inserted card requires 3ds.
+            // We specify the 'return_url' parameter for stripe to pass the payment result.
+            // We send the price and currency values ​​in the 'metadata' section to use in the withdrawal process after the 3ds screen.
+            $setupIntent = $stripe->setupIntents->create([
+                'customer' => $customer['id'],
+                'description' => $service->service->name,
+                'payment_method' => $stripeToken['card']['id'],
+                'payment_method_types' => ['card'],
+                'payment_method_options' => [
+                    'card' => [
+                        'request_three_d_secure' => 'any'
+                    ]
+                ],
+                'confirm' => true,
+                'return_url' => route('parent.connect'),
+                'metadata' => [
+                    'price' => $price,
+                    'currency' => $currency
+                ]
+            ]);
+        }
+            // In case of an error, we print the error message as json.
+        catch (\Stripe\Exception\ApiErrorException $e) {
+            return redirect()->back()->with([
+                'message' => $e->getMessage()
+            ]);
+        }
+
+
+        // If the payment will be made normally (without 3ds) as a result of the verification, we make the withdrawal directly.
+        if ($setupIntent['status'] == 'succeeded') {
+            try {
+                $charge = $stripe->charges->create([
+                    'customer' => $setupIntent['customer'],
+                    'amount' => $price,
+                    'currency' => $currency,
+                    'description' => $service->service->name,
+                    'source' => $stripeToken['card']['id']
+                ]);
+            }
+                // In case of an error, we print the error message as json.
+            catch (\Stripe\Exception\ApiErrorException $e) {
+                return redirect()->back()->with([
+                    'message' => $e->getMessage()
+                ]);
+            }
+
+            // If there is a problem with the withdrawal process, we print an error on the screen.
+            if ($charge['status'] != 'succeeded') {
+                return redirect()->back()->with([
+                    'message' => 'Payment Failed'
+                ]);
+            } else {
+                // If the withdrawal is successful, we print the data returned from the stripe.
+                
+                $therapist_name = ' - ';
+                if ($therapist = $service->user()->first()) {
+                    $therapist_name = $therapist->name . ' ' . $therapist->surname;
+                }
+                
+                Order::create([
+                    'type' => 'therapy',
+                    'firstname' => auth()->user()->name,
+                    'lastname' => auth()->user()->surname,
+                    'address' => '',
+                    'email' => auth()->user()->email,
+                    'phone' => auth()->user()->phone,
+                    'country' => '',
+                    'city' => '',
+                    'total' => $service->price,
+                    'products' => json_encode([
+                        'name' => $service->service->name,
+                        'price' => $service->price,
+                        'stripe_plan' => null,
+                        'credit' => 0,
+                        'therapist' => $therapist_name
+                    ]),
+                    'stripe' => json_encode(request()->all())
+                ]);
+
+
+                $meet->user_id = auth()->user()->id;
+                $meet->credit = 1;
+                $meet->note = sprintf(
+                    'Service: %s, Price: %s, Therapist (ID: %d): %s',
+                    $service->service->name,
+                    $service->price,
+                    $service->user_id,
+                    $therapist_name
+                );
+                $meet->save();
+
+                return redirect()->route('parent.connect')->with('message', 'Successfully');
+            }
+        }
+
+        // If the payment will be made with 3ds as a result of the verification, we direct the user to the 3ds screen sent by stripe.
+        if ($setupIntent['status'] == 'requires_action') {
+            return Redirect::to($setupIntent['next_action']['redirect_to_url']['url']);
+        } else {
+            // If there is a problem in the setupIntent process, we print an error on the screen.
+            return redirect()->back()->with([
+                'message' => '3D Payment Failed'
+            ]);
+        }
+    }
+
+    public function update_credit(Plan $plan)
+    {
+        // card information
+        $holder_name = request()->cardname;
+        $card_number = request()->cardnumber;
+        $month = request()->expmonth;
+        $year = request()->expyear;
+        $cvc = request()->cvc;
+
+        $total = $plan->price;
+
+        // For example, we will withdraw $1 from the card. As stated in the stripe document, we need to multiply the value to be drawn from the card by 100.
+        $currency = 'GBP';
+        $price = $total * 100;
+
+        // We get the stripe secret_key information from the config.
+        $stripe = new \Stripe\StripeClient(
+            config('stripe.secret_key')
+        );
+
+        try {
+            // We obtain a token on the stripe side using the card information.
+            $stripeToken = $stripe->tokens->create([
+                'card' => [
+                    'number' => $card_number,
+                    'exp_month' => $month,
+                    'exp_year' => $year,
+                    'cvc' => $cvc
+                ]
+            ]);
+
+            // We save the customer name and card information on the stripe side..
+            $customer = $stripe->customers->create([
+                'name' => $holder_name,
+                'source' => $stripeToken['id']
+            ]);
+
+            // We create a setupIntent on the stripe side.
+            // As a result of the setupIntent operation, the stripe is verifying whether the inserted card requires 3ds.
+            // We specify the 'return_url' parameter for stripe to pass the payment result.
+            // We send the price and currency values ​​in the 'metadata' section to use in the withdrawal process after the 3ds screen.
             $setupIntent = $stripe->setupIntents->create([
                 'customer' => $customer['id'],
                 'description' => $plan->name,
@@ -135,14 +292,14 @@ class HomeController extends Controller
                 ]
             ]);
         }
-            // hata oluşması durumunda hata mesajını json olarak ekrana yazdırıyoruz.
+            // In case of an error, we print the error message as json.
         catch (\Stripe\Exception\ApiErrorException $e) {
             return redirect()->back()->with([
                 'message' => $e->getMessage()
             ]);
         }
 
-        // eğer doğrulama sonucunda ödeme normal (3ds olmadan) gerçekleşecekse direkt olarak para çekme işlemini yapıyoruz.
+        // If the payment will be made normally (without 3ds) as a result of the verification, we make the withdrawal directly.
         if ($setupIntent['status'] == 'succeeded') {
             try {
                 $charge = $stripe->charges->create([
@@ -153,20 +310,20 @@ class HomeController extends Controller
                     'source' => $stripeToken['card']['id']
                 ]);
             }
-                // hata oluşması durumunda hata mesajını json olarak ekrana yazdırıyoruz.
+                // In case of an error, we print the error message as json.
             catch (\Stripe\Exception\ApiErrorException $e) {
                 return redirect()->back()->with([
                     'message' => $e->getMessage()
                 ]);
             }
 
-            // para çekme işleminde bir sorun olursa ekrana hata yazdırıyoruz.
+            // If there is a problem with the withdrawal process, we print an error on the screen.
             if ($charge['status'] != 'succeeded') {
                 return redirect()->back()->with([
                     'message' => 'Payment Failed'
                 ]);
             } else {
-                // para çekme işlemi başarılı sonuçlanırsa stripe'dan dönen veriyi ekrana basıyoruz.
+                // If the withdrawal is successful, we print the data returned from the stripe.
                 Order::create([
                     'type' => 'plan',
                     'firstname' => auth()->user()->name,
@@ -190,7 +347,11 @@ class HomeController extends Controller
                 $user->plan_credit += $plan->credit;
                 $user->save();
 
-                $user->subscription($plan->id)->swap($plan->stripe_plan);
+                if ($user->subscription($plan->id)) {
+                    $user->subscription($plan->id)->swap($plan->stripe_plan);
+                } else {
+                    auth()->user()->newSubscription($plan->id, $plan->stripe_plan)->create(request()->token ?? 0);
+                }
 
                 return $this->myaccount()->with([
                     'message' => 'Successfully credit',
@@ -198,11 +359,11 @@ class HomeController extends Controller
             }
         }
 
-        // eğer doğrulama sonucunda ödeme 3ds ile gerçekleşecekse kullanıcıyı stripe'ın gönderdiği 3ds ekranına yönlendiriyoruz.
+        // If the payment will be made with 3ds as a result of the verification, we direct the user to the 3ds screen sent by stripe.
         if ($setupIntent['status'] == 'requires_action') {
             return Redirect::to($setupIntent['next_action']['redirect_to_url']['url']);
         } else {
-            // setupIntent işleminde bir sorun olursa ekrana hata yazdırıyoruz.
+            // If there is a problem in the setupIntent process, we print an error on the screen.
             return redirect()->back()->with([
                 'message' => '3D Payment Failed'
             ]);
@@ -222,6 +383,7 @@ class HomeController extends Controller
 
         $meet->user_id = auth()->user()->id;
         $meet->credit = 1;
+        $meet->note = '';
         $meet->save();
 
         $user = credit(true);

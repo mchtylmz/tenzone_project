@@ -7,28 +7,28 @@
     </div>
 
     <div class="flex-between items-center flex-block-mobile mb-4">
-        <ul class="tm-nav-head nav nav-pills">
+        <!--<ul class="tm-nav-head nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link {{ $filter_role == 'teacher' ? 'active' : '' }}" href="?role=teacher">Teacher</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ $filter_role == 'therapy' ? 'active' : '' }}" href="?role=therapy">Therapist</a>
             </li>
-        </ul>
+        </ul>-->
         <div class="mb-4">
-            @if($filter_role == 'teacher')
-                <a href="{{ route('user.book.teachers') }}" class="btn btn-primary with-icon px-4 br-4">
-                    <i class="ri-calendar-2-fill"></i> Book new appointment
-                </a>
-            @endif
-            @if($filter_role == 'therapy')
-                <a href="{{ route('user.book.therapy_services') }}" class="btn btn-primary with-icon px-4 br-4">
-                    <i class="ri-calendar-2-fill"></i> Book Therapist
-                </a>
-            @endif
-
+            <a href="{{ route('user.book.teachers') }}" class="btn btn-primary with-icon px-4 br-4">
+                <i class="ri-calendar-2-fill"></i> Book new appointment
+            </a>
         </div>
     </div>
+
+    @if(count($connects) == 0)
+        <div class="tm-card tm-card-blank text-center">
+            <div class="icon"><i class="ri-user-2-fill"></i></div>
+            <h4>You do not have booking scheduled</h4>
+            <p class="text-5e fs-14">Lorem Ipsum is simply printing and typesetting industry. </p>
+        </div>
+    @endif
 
 
     @foreach($connects as $connect)

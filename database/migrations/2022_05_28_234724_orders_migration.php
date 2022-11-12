@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['store', 'plan'])->default('store');
+            $table->enum('type', ['store', 'plan', 'therapy'])->default('store');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('address')->nullable();

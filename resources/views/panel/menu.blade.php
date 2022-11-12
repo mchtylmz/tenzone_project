@@ -10,8 +10,8 @@
     @props(['prefix' => 'teacher'])
 @endhasanyrole
 
-@hasanyrole('theraphy')
-    @props(['prefix' => 'theraphy'])
+@hasanyrole('therapy')
+    @props(['prefix' => 'therapy'])
 @endhasanyrole
 
 @hasanyrole('admin')
@@ -55,14 +55,15 @@
 
 @else
 
-<li>
-    <a href="{{ route($prefix . '.index') }}" class="{{
+    <li>
+        <a href="{{ route($prefix . '.index') }}" class="{{
         in_array(request()->route()->getName(), [$prefix . '.index', $prefix . '.child_programme']) ? 'active':''
     }}">
-        <div class="icon"><i class="ri-file-list-2-line"></i></div>
-        Programme
-    </a>
-</li>
+            <div class="icon"><i class="ri-file-list-2-line"></i></div>
+            Programme
+        </a>
+    </li>
+
 <li>
     <a href="{{ route($prefix . '.reports') }}" class="{{ request()->route()->getName() == $prefix . '.reports' ? 'active':'' }}">
         <div class="icon"><i class="ri-funds-box-line"></i></div>
@@ -75,6 +76,15 @@
         Connect
     </a>
 </li>
+
+    @hasanyrole('therapy')
+    <li>
+        <a href="{{ route($prefix . '.services') }}" class="{{ request()->route()->getName() == $prefix . '.services' ? 'active':'' }}">
+            <div class="icon"><i class="ri-psychotherapy-line"></i></div>
+            Services
+        </a>
+    </li>
+    @endhasanyrole
 
 @endhasanyrole
 

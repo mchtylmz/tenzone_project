@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('connects', function (Blueprint $table) {
+        Schema::create('therapist_services', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('service_id')->nullable()->references('id')->on('therapy_services')->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('teacher_id')->references('id')->on('users')->onDelete('cascade');
-            $table->date('meet_date');
-            $table->time('meet_time');
-            $table->string('meet_link')->nullable();
-            $table->integer('credit')->default(0);
-            $table->string('note')->nullable();
+            $table->string('description');
+            $table->decimal('price');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('connects');
+        Schema::dropIfExists('therapist_services');
     }
 };

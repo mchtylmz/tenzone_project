@@ -18,6 +18,8 @@ use \App\Http\Controllers\Parent\HomeController as PanelParentController;
 
 use \App\Http\Controllers\Teacher\HomeController as PanelTeacherController;
 
+use \App\Http\Controllers\Therapy\HomeController as PanelTherapyController;
+
 use \App\Http\Controllers\Admin\HomeController as PanelAdminController;
 use \App\Http\Controllers\Admin\UserController as PanelAdminUserController;
 use \App\Http\Controllers\Admin\OrderController as PanelAdminOrderController;
@@ -37,6 +39,10 @@ use \App\Http\Controllers\Admin\OrderController as PanelAdminOrderController;
 Auth::routes(['register' => false]);
 Route::get('/create-account/{plan_slug}', [RegisterController::class, 'index'])->name('register');
 Route::post('/create-account/{plan_slug}', [RegisterController::class, 'create'])->name('register');
+
+Route::get('/terms', [HomeController::class, 'terms'])->name('terms');
+
+Route::get('/policy', [HomeController::class, 'policy'])->name('policy');
 
 // Site
 Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -90,6 +96,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/buy-credit', [HomeController::class, 'buy_credit'])->name('buy.credit');
     Route::post('/update-credit/{plan_id}', [HomeController::class, 'update_credit'])->name('update.credit');
+
+    Route::post('/payment/therapy/{meet_id}/{therapist_service_id}/{user_id}', [
+        HomeController::class, 'payment_therapy'
+    ])->name('payment.therapy');
 });
 
 
@@ -108,7 +118,7 @@ Route::middleware(['auth', 'plan', 'role:user'])
 
         Route::get('/book/therapy/services', [PanelUserController::class, 'book_therapy_services'])->name('book.therapy_services');
         Route::get('/book/therapist/{therapy_service_id}', [PanelUserController::class, 'book_therapist'])->name('book.therapist');
-        Route::get('/book/therapy/{user_id}', [PanelUserController::class, 'book_therapy'])->name('book.therapy');
+        Route::get('/book/therapy/{therapy_service_id}/{user_id}', [PanelUserController::class, 'book_teacher'])->name('book.therapy');
     });
 
 
@@ -136,6 +146,10 @@ Route::middleware(['auth', 'plan', 'role:parent'])
 
         Route::get('/my-subscription', [PanelParentController::class, 'mysubscription'])->name('subscription');
         Route::post('/subscription-cancel/{plan_id}', [PanelParentController::class, 'mysubscription_save'])->name('subscription_cancel');
+
+        Route::get('/book/therapy/services', [PanelParentController::class, 'book_therapy_services'])->name('book.therapy_services');
+        Route::get('/book/therapist/{therapy_service_id}', [PanelParentController::class, 'book_therapist'])->name('book.therapist');
+        Route::get('/book/therapy/{therapist_service_id}/{user_id}', [PanelParentController::class, 'book_therapy'])->name('book.therapy');
     });
 
 
@@ -167,6 +181,43 @@ Route::middleware(['auth', 'role:teacher'])
 
     });
 
+
+
+// therapy
+Route::middleware(['auth', 'role:therapy'])
+    ->prefix('therapy')
+    ->name('therapy.')
+    ->group(function () {
+
+        Route::get('/', [PanelTherapyController::class, 'index'])->name('index');
+        Route::get('/programme/{child_id}', [PanelTherapyController::class, 'child_programme'])
+            ->name('child_programme');
+
+        Route::post('/add-week', [PanelTherapyController::class, 'store_week'])->name('add.week');
+        Route::post('/add-activity/{week_id}', [PanelTherapyController::class, 'store_activity'])->name('add.activity');
+        Route::delete('/delete-activite/{activite_id}', [PanelTherapyController::class, 'delete_activite'])
+            ->name('delete.activite');
+
+        Route::get('/reports', [PanelTherapyController::class, 'reports'])->name('reports');
+        Route::get('/report/{child_id}', [PanelTherapyController::class, 'child_report'])
+            ->name('child_report');
+        Route::post('/add-report/{child_id}', [PanelTherapyController::class, 'store_report'])->name('add.report');
+
+        Route::get('/connect', [PanelTherapyController::class, 'connect'])->name('connect');
+        Route::post('/connect-availability', [PanelTherapyController::class, 'connect_availability'])
+            ->name('meet.availability');
+        Route::post('/connect-update/{meet_id}', [PanelTherapyController::class, 'update_conect'])
+            ->name('meet.update');
+
+        Route::get('/services', [PanelTherapyController::class, 'services'])->name('services');
+        Route::post('/service/add', [PanelTherapyController::class, 'store_service'])
+            ->name('service.add');
+        Route::post('/service/edit/{therapist_service_id}', [PanelTherapyController::class, 'update_service'])
+            ->name('service.update');
+        Route::post('/service/delete/{therapist_service_id}', [PanelTherapyController::class, 'delete_service'])
+            ->name('service.delete');
+    });
+
 // admin
 Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
@@ -192,7 +243,10 @@ Route::middleware(['auth', 'role:admin'])
             ->group(function () {
 
                 Route::get('/add', [PanelAdminUserController::class, 'index'])->name('add');
+                Route::get('/edit/{user_id}', [PanelAdminUserController::class, 'edit'])->name('edit');
+                Route::post('/edit/{user_id}', [PanelAdminUserController::class, 'update'])->name('edit');
                 Route::post('/store', [PanelAdminUserController::class, 'store'])->name('store');
+                Route::post('/delete/{user_id}', [PanelAdminUserController::class, 'delete'])->name('delete');
             });
 
     });

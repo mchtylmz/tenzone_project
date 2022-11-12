@@ -165,8 +165,8 @@
                             <input type="checkbox" value="1" name="terms" id="terms" class="form-check-input"/>
                             <label for="terms" class="form-check-label text-black">
                                 {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                   'terms_of_service' => '<a target="_blank" href="terms" class="text-underline">'.__('Terms of Service').'</a>',
-                                   'privacy_policy' => '<a target="_blank" href="policy" class="text-underline">'.__('Privacy Policy').'</a>',
+                                   'terms_of_service' => '<a target="_blank" href="/terms" class="text-underline">'.__('Terms of Service').'</a>',
+                                   'privacy_policy' => '<a target="_blank" href="/policy" class="text-underline">'.__('Privacy Policy').'</a>',
                                 ]) !!}
                             </label>
                         </div>

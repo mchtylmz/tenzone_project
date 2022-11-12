@@ -33,7 +33,7 @@ class HomeController extends Controller
     {
         $reports = auth()->user()->reports()->latest()->get();
 
-        return view('panel.parent.report', [
+        return view('panel.user.report', [
             'child' => auth()->user(),
             'reports' => $reports
         ]);
@@ -42,8 +42,13 @@ class HomeController extends Controller
     public function connect()
     {
         $filter_role = in_array(request()->role, ['teacher', 'therapy']) ? request()->role : 'teacher';
+        
+        $in = [user()->id];
+        if ($parent = user()->parent()->first()) {
+            $in[] = $parent->id;
+        }
 
-        $connects = Connects::where('user_id', user()->id)
+        $connects = Connects::whereIn('user_id', $in)
             ->where('credit', '!=', 0)
             ->orderBy('meet_date', 'DESC')->paginate(15);
 
@@ -68,23 +73,6 @@ class HomeController extends Controller
         ]);
     }
 
-    public function book_therapy_services()
-    {
-        return view('panel.user.book_therapy_services', [
-            'services' => TherapyService::orderBy('category')->paginate(12)
-        ]);
-    }
-
-    public function book_therapist(TherapyService $service)
-    {
-        // bu servisi verebilen kullanıcılar listelenecek
-        // kullanıcı ve sağladığı servis listesi olacak
-        // TherapyService in kullanıcıları şeklinde gelecek
-        return view('panel.user.book_therapist', [
-            'therapist' => User::role(['therapy'])->paginate(12),
-            'service' => $service
-        ]);
-    }
 
     public function book_teacher(User $teacher)
     {
@@ -101,6 +89,7 @@ class HomeController extends Controller
             'connects' => $connects
         ]);
     }
+
 
     // POST
     public function storeSubmission(Activities $activitie)

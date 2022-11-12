@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <h4 class="mb-3">Add Week</h4>
-                <form action="{{ route('teacher.add.week') }}" method="post" class="loading">
+                <form action="{{ route(($prefix ?? 'teacher').'.add.week') }}" method="post" class="loading">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ $child }}">
                     <div class="mb-3">

@@ -75,7 +75,7 @@
                                                 </a>
                                             @endif
                                             @if($activite->teacher_id == auth()->user()->id)
-                                                <form onsubmit="return confirm('{{ __('Activite is delete ?') }}')" action="{{ route('teacher.delete.activite', $activite->id) }}" method="POST">
+                                                <form onsubmit="return confirm('{{ __('Activite is delete ?') }}')" action="{{ route('therapy.delete.activite', $activite->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn">
@@ -91,7 +91,7 @@
                                    class="btn btn-block btn-primary mt-3">
                                     Add Week Activity
                                 </a>
-                                <x-add_activity week="{{$week->id}}" weekTitle="{{$week->title}}" prefix="teacher"/>
+                                <x-add_activity week="{{$week->id}}" weekTitle="{{$week->title}}" prefix="therapy"/>
                             </div>
                         @endforeach
                     </div>
@@ -102,5 +102,5 @@
 
     </div>
 
-    <x-add_week child="{{$child->id}}" prefix="teacher" />
+    <x-add_week child="{{$child->id}}" prefix="therapy" />
 </x-panel-layout>

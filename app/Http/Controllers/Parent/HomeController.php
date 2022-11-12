@@ -8,6 +8,8 @@ use App\Models\Connects;
 use App\Models\User;
 use App\Models\Weeks;
 use App\Models\Plan;
+use App\Models\TherapistService;
+use App\Models\TherapyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -78,23 +80,27 @@ class HomeController extends Controller
 
     public function connect()
     {
+        $filter_role = in_array(request()->role, ['teacher', 'therapy']) ? request()->role : 'teacher';
+
         $user_ids = collect(user()->childs()->pluck('id'));
         $user_ids->push(user()->id);
-
         $connects = Connects::whereIn('user_id', $user_ids)->where('credit', '!=', 0)->orderBy('meet_date', 'DESC')->paginate(15);
 
         return view('panel.parent.connect', [
-            'connects' => $connects
+            'connects' => $connects,
+            'filter_role' => $filter_role
         ]);
     }
 
     public function book_teachers()
     {
+        $in_teachers = User::role(['teacher'])->pluck('id');
         $teacher_ids = Connects::where('credit', '0')
-                            ->where('meet_date', '>=', date('Y-m-d'))
-                            ->whereNull('user_id')
-                            ->groupBy('teacher_id')
-                            ->pluck('teacher_id');
+            ->where('meet_date', '>=', date('Y-m-d'))
+            ->whereNull('user_id')
+            ->whereIn('teacher_id', $in_teachers)
+            ->groupBy('teacher_id')
+            ->pluck('teacher_id');
 
         return view('panel.parent.book_teachers', [
             'teachers' => User::whereIn('id', $teacher_ids)->paginate(12)
@@ -114,6 +120,39 @@ class HomeController extends Controller
         return view('panel.parent.book_teacher', [
             'teacher' => $teacher,
             'connects' => $connects
+        ]);
+    }
+
+    public function book_therapy(TherapistService $service, User $therapist)
+    {
+        $connects = Connects::where('credit', '0')
+            ->where('meet_date', '>', date('Y-m-d'))
+            ->where('teacher_id', $therapist->id)
+            ->whereNull('user_id')
+            ->orderBy('meet_date', 'DESC')
+            ->orderBy('meet_time', 'DESC')
+            ->paginate(12);
+
+        return view('panel.parent.book_therapy', [
+            'therapist' => $therapist,
+            'service' => $service,
+            'connects' => $connects
+        ]);
+    }
+
+
+    public function book_therapy_services()
+    {
+        return view('panel.parent.book_therapy_services', [
+            'services' => TherapyService::orderBy('category')->paginate(12)
+        ]);
+    }
+
+    public function book_therapist(TherapyService $service)
+    {
+        return view('panel.parent.book_therapist', [
+            'therapist_services' => $service->therapist()->paginate(12),
+            'service' => $service
         ]);
     }
 

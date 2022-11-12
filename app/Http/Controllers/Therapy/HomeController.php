@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Teacher;
+namespace App\Http\Controllers\Therapy;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activities;
@@ -8,6 +8,8 @@ use App\Models\Connects;
 use App\Models\Reports;
 use App\Models\User;
 use App\Models\Weeks;
+use App\Models\TherapyService;
+use App\Models\TherapistService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -16,12 +18,12 @@ class HomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'role:teacher']);
+        $this->middleware(['auth', 'role:therapy']);
     }
 
     public function index()
     {
-        return view('panel.teacher.welcome', [
+        return view('panel.therapy.welcome', [
             'childs' =>  User::role('user')->latest()->get()
         ]);
     }
@@ -30,7 +32,7 @@ class HomeController extends Controller
     {
         $weeks = $child->weeks()->latest()->get();
 
-        return view('panel.teacher.programme', [
+        return view('panel.therapy.programme', [
             'child' => $child,
             'weeks' => $weeks
         ]);
@@ -38,7 +40,7 @@ class HomeController extends Controller
 
     public function reports()
     {
-        return view('panel.teacher.reports', [
+        return view('panel.therapy.reports', [
             'childs' =>  User::role('user')->latest()->get()
         ]);
     }
@@ -47,9 +49,17 @@ class HomeController extends Controller
     {
         $reports = $child->reports()->latest()->get();
 
-        return view('panel.teacher.report', [
+        return view('panel.therapy.report', [
             'child' => $child,
             'reports' => $reports
+        ]);
+    }
+
+    public function services()
+    {
+        return view('panel.therapy.services', [
+            'services' => TherapyService::all(),
+            'therapist_services' => TherapistService::where('user_id', user()->id)->paginate(10)
         ]);
     }
 
@@ -57,10 +67,11 @@ class HomeController extends Controller
     {
         $connects = Connects::where('teacher_id', user()->id)->whereNotNull('user_id')->orderBy('meet_date', 'DESC')->paginate(15);
 
-        return view('panel.teacher.connect', [
+        return view('panel.therapy.connect', [
             'connects' => $connects
         ]);
     }
+
 
     // POST
     public function store_week()
@@ -80,6 +91,50 @@ class HomeController extends Controller
         ]);
 
         return redirect()->back()->withMessage('Successfully Added');
+    }
+
+    public function store_service()
+    {
+        Validator::make(request()->all(), [
+            'service_id'     => ['required', 'integer'],
+            'description'       => ['required', 'string', 'max:255'],
+            'price'  => ['required', 'integer']
+        ])->validate();
+
+        $service = TherapistService::where('service_id', request()->service_id)->where('user_id', user()->id)->first();
+        if (!$service) {
+            $service = new TherapistService;
+            $service->service_id = intval(request()->service_id);
+            $service->user_id = user()->id;
+            $back = 'Successfully Updated';
+        }
+        $service->description = request()->description;
+        $service->price = request()->price;
+
+        $service->save();
+
+        return redirect()->back()->withMessage($back ?? 'Successfully Added');
+    }
+
+    public function update_service(TherapistService $service)
+    {
+        Validator::make(request()->all(), [
+            'description'       => ['required', 'string', 'max:255'],
+            'price'  => ['required', 'integer']
+        ])->validate();
+
+        $service->description = request()->description;
+        $service->price = request()->price;
+        $service->save();
+
+        return redirect()->back()->withMessage('Successfully updated');
+    }
+
+    public function delete_service(TherapistService $service)
+    {
+        $service->delete();
+
+        return redirect()->back()->withMessage('Successfully deleted');
     }
 
     public function connect_availability()

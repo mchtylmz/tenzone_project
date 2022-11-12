@@ -13,6 +13,9 @@
             <li class="nav-item">
                 <a class="nav-link {{ $filter_type == 'plan' ? 'active' : '' }}" href="?type=plan">Plan</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ $filter_type == 'therapy' ? 'active' : '' }}" href="?type=therapy">Therapy</a>
+            </li>
         </ul>
         <div class="d-none">
             <form method="get">
@@ -25,6 +28,14 @@
             </form>
         </div>
     </div>
+
+    @if(count($orders) == 0)
+        <div class="tm-card tm-card-blank text-center">
+            <div class="icon"><i class="ri-user-2-fill"></i></div>
+            <h4>You do not have {{ ucwords($filter_type) }} orders</h4>
+            <p class="text-5e fs-14">Lorem Ipsum is simply printing and typesetting industry. </p>
+        </div>
+    @endif
 
     @foreach($orders as $order)
         <div class="tm-time-item flex-between items-center flex-block-mobile">
@@ -45,6 +56,14 @@
                     <div class="text">
                         <i class="ri-shield-user-fill"></i>
                         {{ $plan->name }} - £{{ $plan->price }}
+                    </div>
+                </div>
+            @elseif($order->type == 'therapy' && $service = json_decode($order->products))
+                <div class="left2">
+                    <div class="text">
+                        <i class="ri-shield-user-fill"></i>
+                        {{ $service->name }} - £{{ $service->price }}
+                        <br> {{ __('Therapist:') }} {{ $service->therapist ?? '-' }}
                     </div>
                 </div>
             @else

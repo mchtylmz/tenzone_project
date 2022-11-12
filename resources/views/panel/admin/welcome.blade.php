@@ -32,6 +32,7 @@
 
 
     @foreach($users as $user)
+
         <div class="tm-time-item flex-between items-center flex-block-mobile">
             <div class="left flex-start">
                 <div class="text">
@@ -53,23 +54,16 @@
                     </div>
                 </div>
             @endif
-            @if($parent && $plan = $parent->plan())
+            @if(($parent && $plan = $parent->plan()) || ($user->hasrole('parent') && $plan = $user->plan()))
                 <div class="left2">
                     <div class="text">
                         <i class="ri-shield-user-line"></i>
                         {{ $plan->name }}
                     </div>
                 </div>
-            @elseif($user->hasrole('parent') && $plan = $user->plan())
+            @elseif($user->hasrole('user') || $user->hasrole('parent'))
                 <div class="left2">
-                    <div class="text">
-                        <i class="ri-shield-user-line"></i>
-                        {{ $plan->name }}
-                    </div>
-                </div>
-            @else
-                <div class="left2">
-                    <div class="text">
+                    <div class="text" style="color: red; font-weight: bold">
                         <i class="ri-shield-user-line"></i>
                         Plan -
                     </div>
@@ -84,15 +78,30 @@
                 </div>
             @endif
             <div class="mid">
-                <div class="text">
-                    <i class="ri-bubble-chart-fill"></i> {{ $user->status }}
+                <div class="text"  style="{{ $user->status == 'passive' ? 'color: red; font-weight: bold': 'color: darkgreen' }}">
+                    <i class="ri-bubble-chart-fill"></i> {{ $user->status == 'passive' ? __('Passive'): __('Active') }}
                 </div>
             </div>
             <div class="right flex-end">
                 <div class="text">
-                    <i class="ri-calendar-2-line"></i>Register: {{ date('d M Y', strtotime($user->created_at)) }}
+                    <i class="ri-calendar-2-line"></i>{{ date('d M Y', strtotime($user->created_at)) }}
                 </div>
             </div>
+            <div class="right flex-end">
+                <a class="btn btn-warning fw-medium br-4" href="{{ route('admin.user.edit', $user->id) }}">
+                    Edit
+                </a>
+                @if(!$user->hasRole('admin'))
+                    <form action="{{ route('admin.user.delete', $user->id) }}" onsubmit="return confirm('{{ __('The user will be deleted, are you sure?') }}');" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-danger fw-medium br-4 ms-3">
+                            Delete
+                        </button>
+                    </form>
+                @endif
+
+            </div>
+
         </div>
     @endforeach
 

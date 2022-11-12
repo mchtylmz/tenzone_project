@@ -3,17 +3,25 @@
 
     <div class="tm-page-head">
         <h1 class="title">{{ $child->fullname }} Report</h1>
-        <p class="text mb-0">You can see your scheduled report here.</p>
+        <p class="text mb-0">You can see your scheduled programs here.</p>
     </div>
 
-    @if(count($reports) == 0)
-        <div class="tm-card tm-card-blank text-center">
-            <div class="icon"><i class="ri-user-2-fill"></i></div>
-            <h4>You do not have report</h4>
-            <p class="text-5e fs-14">Lorem Ipsum is simply printing and typesetting industry. </p>
+
+    <div class="flex-between items-center flex-block-mobile mb-4">
+        <a href="#modalAddReport" data-bs-target="#modalAddReport" data-bs-toggle="modal" class="btn btn-primary fw-medium br-4 px-4">Add Report</a>
+    </div>
+
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
-    
+
     <div class="row">
 
         @foreach($reports as $report)
@@ -51,7 +59,8 @@
                                            title="{{ $report->title }}"
                                            teacher="{{ $teacher->fullname ?? ' - ' }}"
                                            date="{{ date('d.m.Y', strtotime($report->created_at)) }}"
-                                           watch="{{ $report->watch  }}" />
+                                           watch="{{ $report->watch  }}"
+                                           prefix="therapy"/>
                         @endif
                     </div>
                 </div>
@@ -59,5 +68,7 @@
         @endforeach
 
     </div>
+
+    <x-add_report child="{{$child->id}}" fullname="{{$child->fullname}}" prefix="therapy" />
 
 </x-panel-layout>

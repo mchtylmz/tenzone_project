@@ -5,7 +5,7 @@
                 <h4 class="mb-2">Add Activity</h4>
                 <p class="mb-3">{{$weekTitle}}</p>
                 <hr>
-                <form action="{{ route('teacher.add.activity', $week) }}" method="post" enctype="multipart/form-data" class="loading">
+                <form action="{{ route(($prefix ?? 'teacher').'.add.activity', $week) }}" method="post" enctype="multipart/form-data" class="loading">
                     @csrf
                     <div class="mb-3">
                         <label>Activity Title</label>

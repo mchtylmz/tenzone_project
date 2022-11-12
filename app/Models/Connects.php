@@ -19,6 +19,7 @@ class Connects extends Model
         'meet_time',
         'meet_link',
         'credit',
+        'note'
     ];
 
     protected $dates = [

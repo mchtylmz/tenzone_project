@@ -5,7 +5,7 @@
                 <h4 class="mb-2">Add Report</h4>
                 <p class="mb-3">{{$fullname}}</p>
                 <hr>
-                <form action="{{ route('teacher.add.report', $child) }}" method="post" enctype="multipart/form-data" class="loading">
+                <form action="{{ route(($prefix ?? 'teacher').'.add.report', $child) }}" method="post" enctype="multipart/form-data" class="loading">
                     @csrf
                     <div class="mb-3">
                         <label>Report Title</label>

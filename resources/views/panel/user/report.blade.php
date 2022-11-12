@@ -3,8 +3,16 @@
 
     <div class="tm-page-head">
         <h1 class="title">{{ $child->fullname }} Report</h1>
-        <p class="text mb-0">You can see your scheduled report here.</p>
+        <p class="text mb-0">You can see your scheduled report here</p>
     </div>
+
+    @if(count($reports) == 0)
+        <div class="tm-card tm-card-blank text-center">
+            <div class="icon"><i class="ri-user-2-fill"></i></div>
+            <h4>You do not have report</h4>
+            <p class="text-5e fs-14">Lorem Ipsum is simply printing and typesetting industry. </p>
+        </div>
+    @endif
 
     <div class="row">
 

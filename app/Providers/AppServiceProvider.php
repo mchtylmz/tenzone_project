@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Weeks;
 use App\Models\Help;
 use App\Models\TherapyService;
+use App\Models\TherapistService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -91,6 +92,10 @@ class AppServiceProvider extends ServiceProvider
         // therapy_service_id
         Route::bind('therapy_service_id', function ($id) {
             return TherapyService::findOrFail($id);
+        });
+        // therapist_service_id
+        Route::bind('therapist_service_id', function ($id) {
+            return TherapistService::findOrFail($id);
         });
     }
 }

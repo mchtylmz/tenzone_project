@@ -13,6 +13,8 @@ function dashboard(User $user, bool $name = false): string
         $route = 'admin.dashboard';
     } elseif ($user->hasRole('parent')) {
         $route = 'parent.dashboard';
+    } elseif ($user->hasRole('therapy')) {
+        $route = 'therapy.dashboard';
     } elseif ($user->hasRole('user')) {
         $route = 'user.dashboard';
     }
